@@ -1,0 +1,38 @@
+site_name: Tinayrum Solutions Documentation
+site_description: Tinayrum Solutionsの公式ドキュメントサイト
+repo_name: tinayrum/.github
+repo_url: https://github.com/tinayrum/.github
+
+# MkDocs Material テーマの設定
+theme:
+  name: material
+  language: ja
+  highlightjs: true
+  hljs_languages:
+    - python
+    - yaml
+    - bash
+  features:
+    # - navigation.tabs
+    # - navigation.top
+    - search.highlight
+    - search.suggestions
+    - content.code.copy
+    - content.code.select
+
+# Markdown 拡張機能の設定
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences  # ★変更: シンプルな記述のみにします
+  - toc:
+      permalink: true
+
+# # Mermaid.js の設定 (CDNから読み込み)
+# extra_javascript:
+#   - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+
+# ナビゲーションメニューの設定
+nav:
+  - Home: index.md
