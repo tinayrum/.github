@@ -1,19 +1,36 @@
 # Tinayrum Solutions - プロジェクト運用ポータル
 
 ## 🚀 ナレッジ共有型プロジェクト運用ポータル
+
 当組織では「Docs as Code」を推進し、コードとドキュメントの完全一致を目指します。  
 Git Subtree と GitHub Actions を活用した自動連携フローにより、属人化を排除し、常に最新のナレッジが共有される状態を保ちます。  
 
 ---
 
 ### 📚 運用ガイドライン & リソース
+
 開発ルールや運用フローは、リポジトリ内の以下のドキュメントを参照してください。
 
-#### 📄 ガイドライン・手順書
-- **[運用ガイドライン](./guidelines)**
-    - システム構成、ブランチ戦略、レビュー基準、自動化フローの詳細。
-- **[プロジェクト運用手順書_日常運用](./guidelines)**
-    - 開発者の日々のタスク着手からPR作成までのチートシート。
+#### 📖 運用ガイドライン (Portal Site)
+
+プロジェクトの運用ルール、アーキテクチャ、開発フローは以下のGitHub Pagesで公開しています。  
+👉 **[エンジニアリング・ガイドライン (GitHub Pages)](https://tinayrum.github.io/.github/)**
+(※ URLはSettings > Pagesの設定後に確定します)
+
+#### 🛠 管理者用ツール (Admin Tools)
+
+プロジェクトの立ち上げ・構成変更を行う自動化スクリプトです。  
+詳細は [管理者ガイド](https://tinayrum.github.io/.github/admin/) を参照してください。  
+
+##### コマンド一覧
+| 目的 | スクリプト | コマンド例 |
+| :--- | :--- | :--- |
+| **新規PJ立ち上げ** | `setup_project.sh` | `./tools/setup_project.sh MobilityOps_portal MobilityOps_app_console` |
+| **アプリ追加** | `add_app.sh` | `./tools/add_app.sh MobilityOps_portal MobilityOps_edge_control` |
+
+##### 前提条件
+* `tools/.secret_pat` に管理者権限を持つPATが保存されていること。
+* `gh` (GitHub CLI) がインストールされていること。
 
 #### 🛠 テンプレートリポジトリ
 - **[template_portal](https://github.com/tinayrum/template_portal)**
@@ -30,7 +47,7 @@ Git Subtree と GitHub Actions を活用した自動連携フローにより、�
 #### 1. 準備 (初回のみ)
 この管理リポジトリをローカルにクローンし、スクリプトに実行権限を付与します。
 ```bash
-gh repo clone Advanced-Develop-2nd/.github
+gh repo clone tinayrum/.github
 cd .github
 chmod +x tools/setup_project.sh
 ```
