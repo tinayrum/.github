@@ -36,3 +36,6 @@ markdown_extensions:
 # ナビゲーションメニューの設定
 nav:
   - Home: index.md
+  - 管理者ガイド: admin.md
+  - 開発者ガイド: developer.md
+  - ツール仕様: tools.md
