@@ -3,34 +3,58 @@ site_description: Tinayrum Solutionsの公式ドキュメントサイト
 repo_name: tinayrum/.github
 repo_url: https://github.com/tinayrum/.github
 
-# MkDocs Material テーマの設定
+# テーマ設定
 theme:
   name: material
   language: ja
-  highlightjs: true
-  hljs_languages:
-    - python
-    - yaml
-    - bash
   features:
-    # - navigation.tabs
-    # - navigation.top
+    - navigation.tabs        # トップレベルのメニューをタブ表示
+    - navigation.sections    # セクションを展開表示
+    - navigation.top         # 「トップに戻る」ボタン
     - search.highlight
-    - search.suggestions
+    - search.share
     - content.code.copy
-    - content.code.select
+  palette:
+    # ライトモード
+    - scheme: default
+      primary: indigo
+      accent: light blue
+      toggle:
+        icon: material/weather-sunny
+        name: ダークモードへ切り替え
+    # ダークモード
+    - scheme: slate
+      primary: indigo
+      accent: light blue
+      toggle:
+        icon: material/weather-night
+        name: ライトモードへ切り替え
 
-# Markdown 拡張機能の設定
+# 拡張機能
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
   - pymdownx.details
-  - pymdownx.superfences  # ★変更: シンプルな記述のみにします
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
   - toc:
       permalink: true
 
-# # Mermaid.js の設定 (CDNから読み込み)
-# extra_javascript:
-#   - https://unpkg.com/mermaid/dist/mermaid.min.js
+# 数式とMermaidのサポート
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 
 # ナビゲーションメニューの設定
