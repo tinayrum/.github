@@ -1,1 +1,23 @@
+# Secrets
 tools/.secret_pat
+
+# Virtual environment
+.venv/
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test / tooling cache
+.pytest_cache/
+.mypy_cache/
+
+# Environment files
+.env
+.env.*
+
+# Editor / OS files
+.DS_Store
+.vscode/
+

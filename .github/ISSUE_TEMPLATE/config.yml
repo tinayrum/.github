@@ -1,0 +1,6 @@
+
+blank_issues_enabled: false
+contact_links:
+  - name: 質問・Q&A（Discussions）
+    url: https://github.com/OWNER/REPO/discussions
+    about: 使用方法や一般的な質問は

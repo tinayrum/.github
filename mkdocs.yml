@@ -3,6 +3,15 @@ site_description: Tinayrum Solutionsの公式ドキュメントサイト
 repo_name: tinayrum/.github
 repo_url: https://github.com/tinayrum/.github
 
+# サイトURL（Pages公開後に確定）
+# site_url: https://tinayrum.github.io/.github/
+
+# 編集用URI（Docs の "Edit on GitHub" ボタンが有効になる設定）
+# edit_uri: blob/main/docs/
+
+# 追加のメタ情報（表示やSEO向けの補助）
+# site_author: Tinayrum Solutions
+
 # テーマ設定
 theme:
   name: material

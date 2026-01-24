@@ -1,0 +1,14 @@
+# ブランチ名に応じたラベル付与ルール
+feature:
+  - head-branch: ['^feature/', '^feat/']
+
+bugfix:
+  - head-branch: ['^bugfix/', '^fix/']
+
+docs:
+  - head-branch: ['^docs/']
+  - changed-files:
+    - any-glob-to-any-file: ['docs/**', '*.md']
+
+chore:
+  - head-branch: ['^chore/']
