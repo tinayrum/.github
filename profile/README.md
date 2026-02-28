@@ -1,4 +1,8 @@
+
 # Tinayrum Solutions - プロジェクト運用ポータル
+
+本ポータルは「Portal+App構成」および「App単体構成」の両方に対応しています。
+どちらのリポジトリでも、Docs as Codeによる運用・管理を推奨します。
 
 ## 🚀 ナレッジ共有型プロジェクト運用ポータル
 
@@ -22,11 +26,13 @@ Git Subtree と GitHub Actions を活用した自動連携フローにより、�
 プロジェクトの立ち上げ・構成変更を行う自動化スクリプトです。  
 詳細は [管理者ガイド](https://tinayrum.github.io/.github/admin/) を参照してください。  
 
+
 ##### コマンド一覧
 | 目的 | スクリプト | コマンド例 |
 | :--- | :--- | :--- |
-| **新規PJ立ち上げ** | `setup_project.sh` | `./tools/setup_project.sh MobilityOps_portal MobilityOps_app_console` |
-| **アプリ追加** | `add_app.sh` | `./tools/add_app.sh MobilityOps_portal MobilityOps_edge_control` |
+| **新規PJ立ち上げ (Portal+App)** | `setup_project.sh` | `./tools/setup_project.sh MobilityOps_portal MobilityOps_app_console` |
+| **アプリ追加 (Portal+App)** | `add_app.sh` | `./tools/add_app.sh MobilityOps_portal MobilityOps_edge_control` |
+| **新規PJ立ち上げ (App単体)** | `setup_app_only.sh` | `./tools/setup_app_only.sh MobilityOps_app_console` |
 
 ##### 前提条件
 * `tools/.secret_pat` に管理者権限を持つPATが保存されていること。
@@ -40,8 +46,9 @@ Git Subtree と GitHub Actions を活用した自動連携フローにより、�
 
 ---
 
+
 ### ⚡ プロジェクト立ち上げ手順 (管理者・PM向け)
-新規プロジェクトを開始する際は、**手動でリポジトリを作成せず**、以下の自動化スクリプトを使用してください。  
+新規プロジェクトを開始する際は、**手動でリポジトリを作成せず**、以下の自動化スクリプトを使用してください。
 「リポジトリ作成」「Secret(PAT)設定」「Subtree連携」を一括で自動実行します。
 
 #### 1. 準備 (初回のみ)
@@ -49,21 +56,27 @@ Git Subtree と GitHub Actions を活用した自動連携フローにより、�
 ```bash
 gh repo clone tinayrum/.github
 cd .github
-chmod +x tools/setup_project.sh
+chmod +x tools/setup_project.sh tools/setup_app_only.sh
 ```
 
 #### 2. セットアップ実行
 
+##### Portal+App構成
 ```bash
 # 使用法： ./tools/setup_project.sh <新規ポータル名> <新規アプリ名>
 ./tools/setup_project.sh ProjectA_portal ProjectA_app
 ```
 
+##### App単体構成
+```bash
+# 使用法： ./tools/setup_app_only.sh <新規アプリ名>
+./tools/setup_app_only.sh ProjectA_app
+```
+
 *※ 実行中に管理者用PAT（Personal Access Token）の入力を求められます。*  
 *※ 作成したPATは安全に保管してください。子リポジトリの追加などで再度求められます*
 
-#### 3. 子リポジトリの追加
-
+#### 3. 子リポジトリの追加 (Portal+App構成のみ)
 ```bash
 # 使用法： ./tools/add_app.sh <既存ポータル名> <新規アプリ名>
 ./tools/add_app.sh ProjectA_portal ProjectB_app
@@ -71,13 +84,16 @@ chmod +x tools/setup_project.sh
 
 ---
 
-### 🔄 自動連携アーキテクチャ概要
+
+### 🔄 自動連携アーキテクチャ概要（Portal+App構成の場合）
 
 コスト０円（Freeプラン）かつセキュアな運用のために、以下のフローで自動化しています。
 
-1. **Dev(子リポジトリ)**： 開発者がPRをマージ -> 親リポジトリへ「更新通知」を送信。
-2. **Sync(親リポジトリ)**： 通知を受信 -> 自動で `git subtree pull` を実行し、ドキュメントを取り込む。
-3. **Check**： 親リポ塩リに「同期用PR」が自動生成されるので、管理者がマージする。
+1. **Dev(Appリポジトリ)**： 開発者がPRをマージ -> Portalリポジトリへ「更新通知」を送信。
+2. **Sync(Portalリポジトリ)**： 通知を受信 -> 自動で `git subtree pull` を実行し、ドキュメントを取り込む。
+3. **Check**： Portalリポジトリに「同期用PR」が自動生成されるので、管理者がマージする。
+
+App単体構成の場合は、各Appリポジトリ内で完結します。
 
 ---
 

@@ -60,6 +60,11 @@ RepoRoot/
 
 ## 📌 注意点
 
+### ⚠️ コミットメッセージの書き方
+
+コミットメッセージは、以下のフォーマットを厳守してください。  
+`<prefix>(scope): <description>`
+
 ### 🏷 ブランチ命名規則
 
 自動化ツールがバージョンアップの種類を判別できるよう、以下のPrefixを厳守してください。  
@@ -85,11 +90,11 @@ RepoRoot/
 
 | Prefix | 用途 | 例 |
 | :--- | :--- | :--- |
-| TODO | 今後のタスク | `// TODO: Refactor this function` |
-| BUG | バグの説明 | `// BUG: This causes a memory leak` |
-| HACK | 一時的な対処 | `// HACK: This is a temporary workaround` |
-| NOTE | 補足説明 | `// NOTE: This is an important detail` |
-| WARN | 注意点 | `// WARN: This is a risky operation` |
-| PERF | パフォーマンス関連 | `// PERF: This is a performance bottleneck` |
-| SEC | セキュリティ関連 | `// SEC: This is a potential security vulnerability` |
-| DEV | 開発者向けの情報 | `// DEV: This is for developers only` |
+| `TODO` | 今後のタスク | `// TODO: Refactor this function` |
+| `BUG` | バグの説明 | `// BUG: This causes a memory leak` |
+| `HACK` | 一時的な対処 | `// HACK: This is a temporary workaround` |
+| `NOTE` | 補足説明 | `// NOTE: This is an important detail` |
+| `WARN` | 注意点 | `// WARN: This is a risky operation` |
+| `PERF` | パフォーマンス関連 | `// PERF: This is a performance bottleneck` |
+| `SEC` | セキュリティ関連 | `// SEC: This is a potential security vulnerability` |
+| `DEV` | 開発者向けの情報 | `// DEV: This is for developers only` |

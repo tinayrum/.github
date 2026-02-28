@@ -28,7 +28,7 @@
 | :--- | :--- | :--- |
 | **新規PJ立ち上げ (Portal+App)** | `setup_project.sh` | `./tools/setup_project.sh PortalName AppName` |
 | **アプリ追加 (Portal+App)** | `add_app.sh` | `./tools/add_app.sh PortalName AppName` |
-| **新規PJ立ち上げ (Appのみ)** | `setup_project.sh` | `./tools/setup_project.sh AppName` |
+| **新規PJ立ち上げ (Appのみ)** | `setup_app_only.sh` | `./tools/setup_app_only.sh AppName` |
 
 ### 前提条件
 * `tools/.secret_pat` に管理者権限を持つPATが保存されていること。
