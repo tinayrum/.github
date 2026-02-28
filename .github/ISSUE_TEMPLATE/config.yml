@@ -1,4 +1,5 @@
 
-name: 質問・Q&A（Discussions）
-description: 使用方法や一般的な質問は、こちらのDiscussionsをご利用ください。
-title: "[QA]: "
+blank_issues_enabled: fales
+contact_links:
+  - name: 質問・Q&A（Discussions）
+    about: 使用方法や一般的な質問は、Blank issue をご利用ください。
