@@ -80,7 +80,7 @@
     echo "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" > tools/.secret_pat
     ```
 
-2. `setup_project.sh` と `add_app.sh` に実行権限を付与します（App単体の場合は `setup_project.sh` のみ）。
+2. `setup_project.sh` と `add_app.sh` に実行権限を付与します（App単体の場合は `setup_app_only.sh` のみ）。
 
     ```bash
     chmod +x tools/setup_project.sh tools/add_app.sh

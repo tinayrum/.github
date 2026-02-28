@@ -1,8 +1,8 @@
-git commit -m "Initial commit for app-only repository"
-git push origin main
-
 #!/bin/bash
-# app単体リポジトリ作成スクリプト (テンプレート・PAT・Secret対応)
+
+# ==========================================
+# アプリ単体リポジトリ作成自動化スクリプト (setup_project.shベース)
+# ==========================================
 
 set -e
 
@@ -10,14 +10,14 @@ set -e
 ORG_NAME="tinayrum"
 TEMPLATE_APP="template_app"
 
+# 引数チェック
 if [ $# -ne 1 ]; then
-  echo "Usage: $0 <AppName>"
-  exit 1
+    echo "使用法: ./setup_app_only.sh <新規アプリ名>"
+    echo "例: ./setup_app_only.sh ProjectA_app"
+    exit 1
 fi
 
-APP_NAME="$1"
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PAT_FILE="$SCRIPT_DIR/.secret_pat"
+APP_NAME=$1
 
 # GitHub CLI ログイン確認
 if ! gh auth status >/dev/null 2>&1; then
@@ -27,11 +27,16 @@ fi
 
 gh auth setup-git
 
-# PAT取得
+# ========================================================
+# PAT取得ロジック (秘密ファイル -> 手動入力)
+# ========================================================
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PAT_FILE="$SCRIPT_DIR/.secret_pat"
+
 if [ -f "$PAT_FILE" ]; then
     ADMIN_TOKEN=$(cat "$PAT_FILE" | tr -d '\r\n')
     if [ -n "$ADMIN_TOKEN" ]; then
-        echo "✅ .secret_patからPATを取得しました。"
+        echo "✅ 秘密ファイル(.secret_pat)からPATを自動取得しました。"
     fi
 fi
 
@@ -44,33 +49,37 @@ if [ -z "$ADMIN_TOKEN" ]; then
 fi
 
 if [ -z "$ADMIN_TOKEN" ]; then
-    echo "エラー: PATが取得できませんでした。"
+    echo "エラー: PATが取得できませんでした。処理を中止します。"
     exit 1
 fi
 
-# Appリポジトリ作成 (テンプレートから)
-echo "Creating App Repository: $APP_NAME..."
-gh repo create "$ORG_NAME/$APP_NAME" --template "$ORG_NAME/$TEMPLATE_APP" --private --confirm
+# ========================================================
+# ★作業ディレクトリの移動: ワークスペースルートへ
+# ========================================================
+WORK_DIR="$SCRIPT_DIR/../.."
+cd "$WORK_DIR" || exit
+echo "作業場所を移動しました: $(pwd)"
 
-# Secret登録 (workflow用)
+echo "🚀 アプリ単体リポジトリ立ち上げを開始します..."
+
+# 1. リポジトリ作成
+echo "Creating App Repository..."
+gh repo create "$ORG_NAME/$APP_NAME" --template "$ORG_NAME/$TEMPLATE_APP" --private --clone
+
+# 2. Secret 設定
 echo "Setting Secrets..."
 gh secret set ORG_ADMIN_TOKEN -b "$ADMIN_TOKEN" --repo "$ORG_NAME/$APP_NAME"
 
-# クローンして初期ファイル追加
-gh repo clone "$ORG_NAME/$APP_NAME"
+# 3. 初期ファイル追加
 cd "$APP_NAME"
-mkdir -p docs tools
-echo "# $APP_NAME" > README.md
-echo "## App単体リポジトリ" >> README.md
-touch docs/admin.md docs/developer.md docs/tools.md
-cp "$SCRIPT_DIR/setup_project.sh" tools/
-echo "$ADMIN_TOKEN" > tools/.secret_pat
-
 git add .
 git commit -m "Initial commit for app-only repository"
 git push origin main
 
+cd ..
+# rm -rf "$APP_NAME" # 必要に応じて
+
 echo "=========================================="
-echo "✅ App-only repository '$APP_NAME' created and initialized."
+echo "✅ セットアップ完了！"
 echo "  App: https://github.com/$ORG_NAME/$APP_NAME"
 echo "=========================================="
