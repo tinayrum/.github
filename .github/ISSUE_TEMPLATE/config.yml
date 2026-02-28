@@ -1,6 +1,6 @@
 
 blank_issues_enabled: true
 contact_links:
-  - name: メールでの問い合わせ
-    url: mailto:info@tinayrum.com
-    about: お仕事の依頼や使用方法の質問などはこちらへ。プロジェクトに関する質問は、Blank Issueをご利用ください。
+  - name: 質問・Q&A（Discussions）
+    url: https://github.com/tinayrum/.github/discussions
+    about: 使用方法や一般的な質問は、こちらのDiscussionsをご利用ください。
