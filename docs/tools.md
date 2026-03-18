@@ -1,12 +1,28 @@
+# ツール仕様・運用フロー
 
-# 管理ツールガイド
+---
 
-本ガイドは「Portal+App構成」および「App単体構成」の両方に対応しています。
+## 配下スクリプト一覧
 
-## 主な自動化スクリプト
+| スクリプト | 概要 |
+|:---|:---|
+| setup_portal.sh | Portalリポジトリ新規作成 |
+| add_app.sh | PortalリポジトリへのApp追加 |
+| setup_app.sh | App単体リポジトリ新規作成 |
 
-- `setup_project.sh` : Portal+App構成の新規プロジェクト立ち上げ
-- `add_app.sh` : Portal+App構成の既存PortalへのApp追加
-- `setup_app_only.sh` : App単体リポジトリの新規作成
+## 使い方・運用フロー
 
-各スクリプトの詳細・使い方は `admin.md` を参照してください。
+!!! example "実行例"
+	```bash
+	./tools/setup_portal.sh <Portal名>
+	./tools/add_app.sh <Portal名> <App名>
+	./tools/setup_app.sh <App名>
+	```
+
+!!! warning "運用上の注意点"
+	- PAT管理、権限、エラー時の対処など
+
+---
+
+詳細な仕様は各スクリプトの先頭コメントやREADMEも参照してください。
+## coming soon...

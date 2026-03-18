@@ -4,106 +4,60 @@
 本ポータルは「Portal+App構成」および「App単体構成」の両方に対応しています。
 どちらのリポジトリでも、Docs as Codeによる運用・管理を推奨します。
 
+---
+
 ## 🚀 ナレッジ共有型プロジェクト運用ポータル
 
-当組織では「Docs as Code」を推進し、コードとドキュメントの完全一致を目指します。  
-Git Subtree と GitHub Actions を活用した自動連携フローにより、属人化を排除し、常に最新のナレッジが共有される状態を保ちます。  
+当組織は「Docs as Code」を推進し、コードとドキュメントの完全一致・自動連携を徹底しています。
+GitHub ActionsとGit Subtreeによる自動化で、属人化を排除し、常に最新のナレッジ共有を実現します。
 
 ---
 
-### 📚 運用ガイドライン & リソース
+## 📚 運用ガイドライン & リソース
 
-開発ルールや運用フローは、リポジトリ内の以下のドキュメントを参照してください。
-
-#### 📖 運用ガイドライン (Portal Site)
-
-プロジェクトの運用ルール、アーキテクチャ、開発フローは以下のGitHub Pagesで公開しています。  
-👉 **[エンジニアリング・ガイドライン (GitHub Pages)](https://tinayrum.github.io/.github/)**
-(※ URLはSettings > Pagesの設定後に確定します)
-
-#### 🛠 管理者用ツール (Admin Tools)
-
-プロジェクトの立ち上げ・構成変更を行う自動化スクリプトです。  
-詳細は [管理者ガイド](https://tinayrum.github.io/.github/admin/) を参照してください。  
-
-
-##### コマンド一覧
-| 目的 | スクリプト | コマンド例 |
-| :--- | :--- | :--- |
-| **新規PJ立ち上げ (Portal+App)** | `setup_project.sh` | `./tools/setup_project.sh MobilityOps_portal MobilityOps_app_console` |
-| **アプリ追加 (Portal+App)** | `add_app.sh` | `./tools/add_app.sh MobilityOps_portal MobilityOps_edge_control` |
-| **新規PJ立ち上げ (App単体)** | `setup_app_only.sh` | `./tools/setup_app_only.sh MobilityOps_app_console` |
-
-##### 前提条件
-* `tools/.secret_pat` に管理者権限を持つPATが保存されていること。
-* `gh` (GitHub CLI) がインストールされていること。
-
-#### 🛠 テンプレートリポジトリ
-- **[template_portal](https://github.com/tinayrum/template_portal)**
-    - 親リポジトリ用：プロジェクト管理・ドキュメント統合・デプロイ。
-- **[template_app](https://github.com/tinayrum/template_app)**
-    - 子リポジトリ用：アプリケーションソースコード・詳細仕様書。
+- [運用ガイドライン (GitHub Pages)](https://tinayrum.github.io/.github/)
+- [管理者ガイド](https://tinayrum.github.io/.github/admin/)
+- [開発者ガイド](https://tinayrum.github.io/.github/developer/)
+- [ツール仕様](https://tinayrum.github.io/.github/tools/)
+- [アプリ単体運用ガイド](https://tinayrum.github.io/.github/app_standalone/)
 
 ---
 
+## ⚡ プロジェクト立ち上げ・運用フロー
 
-### ⚡ プロジェクト立ち上げ手順 (管理者・PM向け)
-新規プロジェクトを開始する際は、**手動でリポジトリを作成せず**、以下の自動化スクリプトを使用してください。
-「リポジトリ作成」「Secret(PAT)設定」「Subtree連携」を一括で自動実行します。
+### 1. 準備
+1. 管理リポジトリをCloneし、`tools/.secret_pat` に管理者PATを保存
+2. スクリプトに実行権限を付与
+	```bash
+	chmod +x tools/setup_portal.sh tools/add_app.sh tools/setup_app.sh
+	```
 
-#### 1. 準備 (初回のみ)
-この管理リポジトリをローカルにクローンし、スクリプトに実行権限を付与します。
+### 2. Portal/Appリポジトリ作成
 ```bash
-gh repo clone tinayrum/.github
-cd .github
-chmod +x tools/setup_project.sh tools/setup_app_only.sh
-```
-
-#### 2. セットアップ実行
-
-##### Portal+App構成
-```bash
-# 使用法： ./tools/setup_project.sh <新規ポータル名> <新規アプリ名>
-./tools/setup_project.sh ProjectA_portal ProjectA_app
-```
-
-##### App単体構成
-```bash
-# 使用法： ./tools/setup_app_only.sh <新規アプリ名>
-./tools/setup_app_only.sh ProjectA_app
-```
-
-*※ 実行中に管理者用PAT（Personal Access Token）の入力を求められます。*  
-*※ 作成したPATは安全に保管してください。子リポジトリの追加などで再度求められます*
-
-#### 3. 子リポジトリの追加 (Portal+App構成のみ)
-```bash
-# 使用法： ./tools/add_app.sh <既存ポータル名> <新規アプリ名>
+# Portal新規作成
+./tools/setup_portal.sh ProjectA_portal
+# App追加
 ./tools/add_app.sh ProjectA_portal ProjectB_app
+# App単体新規作成
+./tools/setup_app.sh MyApp
 ```
 
 ---
 
+## 🔄 自動連携アーキテクチャ概要
 
-### 🔄 自動連携アーキテクチャ概要（Portal+App構成の場合）
-
-コスト０円（Freeプラン）かつセキュアな運用のために、以下のフローで自動化しています。
-
-1. **Dev(Appリポジトリ)**： 開発者がPRをマージ -> Portalリポジトリへ「更新通知」を送信。
-2. **Sync(Portalリポジトリ)**： 通知を受信 -> 自動で `git subtree pull` を実行し、ドキュメントを取り込む。
-3. **Check**： Portalリポジトリに「同期用PR」が自動生成されるので、管理者がマージする。
-
-App単体構成の場合は、各Appリポジトリ内で完結します。
+1. **Appリポジトリ**: 開発者がPRをマージ→親リポジトリへ「更新通知」
+2. **Portalリポジトリ**: 通知受信→自動で `git subtree pull` 実行
+3. **管理者**: Portal側で同期用PRをマージ
 
 ---
 
-### 🏷 ブランチ命名規則
-
-自動化ツールがバージョンアップの種類を判別できるよう、以下のPrefixを厳守してください。  
-マージ完了後のブランチは、GitHubの設定により、**即時削除**されます。
+## 🏷 ブランチ命名規則
 
 | Prefix | 用途 | SemVer影響 | 例 |
 | :--- | :--- | :--- | :--- |
+| `main` | メインブランチ | なし | `main` |
+| `develop` | ステージングブランチ | なし | `develop` |
 | `feature/` | 新機能追加 | Minor | `feature/add-login-function` |
 | `bugfix/` | バグ修正 | Patch | `bugfix/fix-crash-on-startup` |
 | `hotfix/` | 緊急修正 | Patch | `hotfix/fix-security-vulnerability` |
@@ -113,7 +67,18 @@ App単体構成の場合は、各Appリポジトリ内で完結します。
 
 ---
 
-### 🆘 緊急連絡先
+## 📝 開発・運用のポイント
+
+- **Docs as Code**: コード修正時はdocs/も必ず更新
+- **main直Push禁止**: PR経由でマージ
+- **CI/CD必須**: GitHub Actions等で自動テスト・デプロイ
+- **README.md整備**: QuickStart・開発手順・依存関係を明記
+- **テンプレート活用**: Issue/PRテンプレート・CI/CDワークフローを標準化
+
+---
+
+## 🆘 緊急連絡先
+
 
 - システム管理者： [藤平](https://github.com/tinayla696)
 - インシデント報告：[info@tinayrum.com](mailto:) or GitHub Issues

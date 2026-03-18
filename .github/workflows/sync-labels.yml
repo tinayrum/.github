@@ -1,4 +1,5 @@
 name: Sync Labels
+
 on:
   push:
     paths:

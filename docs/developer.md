@@ -1,56 +1,81 @@
+# 開発者ガイド
 
-# 開発者向けガイド (Developer Handbook)
+---
 
-本ガイドは「Portal+App構成」および「App単体構成」の両方に対応しています。
-どちらのリポジトリでも、基本的な開発ルール・フローは共通です。
+## 1. ブランチ命名規則
 
-## 📝 ゴールデンルール
-1. **Docs as Code**: コードを修正したら、同じPRで必ずドキュメント (`docs/`) も修正する。
-2. **Naming**: ブランチ名のPrefix (`feature/`, `bugfix/`) を守る。
-3. **No Direct Push**: `main` ブランチへの直接Pushは禁止。必ずPRを経由する。
+!!! note "Prefix運用"
+	- feature/、bugfix/、hotfix/、release/、docs/、chore/ など
+	- hotfix/はmain直マージ、必要に応じdevelopへcherry-pick
+	- 詳細は[memo.md](memo.md)の表を参照
 
-## 🔄 日々の開発フロー
+## 2. コミットメッセージ規約
 
-### 1. ブランチ作成
-```bash
-git checkout -b feature/login-screen
-```
+!!! tip "Conventional Commits形式"
+	- `type(scope): subject` 例: `feat(api): add login`
+	- type例: feat, fix, docs, chore, refactor, test, ci
+	- scopeは任意、subjectは簡潔に
 
-### 2. 実装 & ドキュメント更新
+## 3. Issue・Pull Request 運用
 
-ソースコードの修正に合わせて、`docs/index.md` や仕様書を更新します。
+!!! example "運用ポイント"
+	- `.github/ISSUE_TEMPLATE/` のテンプレートを活用
+	- `.github/pull_request_template.md` でレビューチェックリストを活用
+	- Issueは必ずGitHub上で作成
+	- PRはmain直Push禁止、必ずレビューを経由
 
-```bash
-# コードとドキュメントはセットでコミット
-git add src/login.ts docs/specs.md
-git commit -m "feat: login implementation and docs update"
-```
+## 4. コードレビュー
 
-### 3. PR作成 & マージ
+!!! info "レビューの進め方"
+	- 変更内容の品質・一貫性を重視
+	- 明確な説明・レビューチェックリストを記載
+	- 建設的なフィードバックを心がける
 
-GitHub上でPRを作成します。
+## 5. ドキュメント管理
 
-- CI(Lint/Test) が通っていることを確認。
-- Portal+App構成の場合は、マージ後に自動的にPortalへ同期されます。
-- App単体構成の場合は、マージ後にAppリポジトリのみが更新されます。
+!!! info "Docs as Code原則"
+	- コード修正時はdocs/も必ず更新
+	- ドキュメントのみのPRも可
+	- コミットメッセージに `docs:` を明記
+	- ドキュメント責任者・レビュワー明確化（大規模PJの場合）
 
+## 6. CI/CD・セキュリティ
 
-## 📂 ディレクトリ構成例
+!!! tip "CI/CD・セキュリティ運用"
+	- PR作成時に自動テスト・Lint・セキュリティスキャンを実行
+	- Secret管理（GitHub ActionsのsecretsやDependabot alerts等）を徹底
+	- mainブランチへのデプロイはCI経由のみ
 
-### Portal+App構成
-```tree
+## 7. コミュニケーション
+
+!!! tip "推奨"
+	- Issue/PRコメントは敬意を持って建設的に
+	- Discussionsやチャットツールも活用
+
+---
+
+## 日々の開発フロー例
+
+1. ブランチ作成
+	```bash
+	git checkout -b feature/login-screen
+	```
+2. 実装 & ドキュメント更新
+	```bash
+	# コードとドキュメントはセットでコミット
+	git add src/login.ts docs/specs.md
+	git commit -m "feat(auth):login implementation and docs update"
+	```
+3. PR作成 & マージ
+	- GitHub上でPRを作成
+	- CI(Lint/Test)が通っていることを確認
+	- マージ後、自動的にPortalへ同期
+
+## ディレクトリ構成例
+
+```text
 RepoRoot/
-├── .github/      # CI設定 (触らない)
-├── src/          # ソースコード
-├── docs/         # ★ここにドキュメントを書く
-│   ├── index.md
-│   └── images/
-└── mkdocs.yml    # ドキュメント設定
-```
-
-### App単体構成
-```tree
-RepoRoot/
+├── .github/      # CI設定
 ├── src/          # ソースコード
 ├── docs/         # ドキュメント
 │   ├── index.md
@@ -58,43 +83,87 @@ RepoRoot/
 └── mkdocs.yml    # ドキュメント設定
 ```
 
-## 📌 注意点
+---
 
-### ⚠️ コミットメッセージの書き方
+---
 
-コミットメッセージは、以下のフォーマットを厳守してください。  
-`<prefix>(scope): <description>`
+## 1. ブランチ命名規則
 
-### 🏷 ブランチ命名規則
+!!! note "Prefix運用"
+	- feature/、bugfix/、hotfix/、release/、docs/、chore/ など
+	- hotfix/はmain直マージ、必要に応じdevelopへcherry-pick
+	- ブランチ名は自動化ツールが判別しやすいようPrefixを厳守
 
-自動化ツールがバージョンアップの種類を判別できるよう、以下のPrefixを厳守してください。  
-マージ完了後のブランチは、GitHubの設定により、**即時削除**されます。
+## 2. コミットメッセージ規約
 
-| Prefix | 用途 | SemVer影響 | 例 |
-| :--- | :--- | :--- | :--- |
-| `feature/` | 新機能追加 | Minor | `feature/add-login-function` |
-| `bugfix/` | バグ修正 | Patch | `bugfix/fix-crash-on-startup` |
-| `hotfix/` | 緊急修正 | Patch | `hotfix/fix-security-vulnerability` |
-| `release/` | リリース準備 | Patch/Minor | `release/v1.2.0-prep` |
-| `docs/` | ドキュメント更新のみ | Patch | `docs/update-api-docs` |
-| `chore/` | その他メンテナンス | Patch | `chore/update-dependencies` |
+!!! tip "Conventional Commits形式"
+	- `type(scope): subject` 例: `feat(api): add login`
+	- type例: feat, fix, docs, chore, refactor, test, ci
+	- scopeは任意、subjectは簡潔に
 
-### 🚫 直接Push禁止
+## 3. Issue・Pull Request 運用
 
-`main` ブランチへの直接Pushは禁止されています。必ずPRを経由してください。
+!!! example "運用ポイント"
+	- `.github/ISSUE_TEMPLATE/` のテンプレートを活用
+	- `.github/pull_request_template.md` でレビューチェックリストを活用
+	- Issueは必ずGitHub上で作成
+	- PRはmain直Push禁止、必ずレビューを経由
 
-### ソースコード内のコメントについて
+## 4. コードレビュー
 
-- コード内のコメントは、**英語 or 日本語**で記述してください。
-- コメントには、必ず接頭辞をつけてください。
+!!! info "レビューの進め方"
+	- 変更内容の品質・一貫性を重視
+	- 明確な説明・レビューチェックリストを記載
+	- 建設的なフィードバックを心がける
 
-| Prefix | 用途 | 例 |
-| :--- | :--- | :--- |
-| `TODO` | 今後のタスク | `// TODO: Refactor this function` |
-| `BUG` | バグの説明 | `// BUG: This causes a memory leak` |
-| `HACK` | 一時的な対処 | `// HACK: This is a temporary workaround` |
-| `NOTE` | 補足説明 | `// NOTE: This is an important detail` |
-| `WARN` | 注意点 | `// WARN: This is a risky operation` |
-| `PERF` | パフォーマンス関連 | `// PERF: This is a performance bottleneck` |
-| `SEC` | セキュリティ関連 | `// SEC: This is a potential security vulnerability` |
-| `DEV` | 開発者向けの情報 | `// DEV: This is for developers only` |
+## 5. ドキュメント管理
+
+!!! info "Docs as Code原則"
+	- コード修正時はdocs/も必ず更新
+	- ドキュメントのみのPRも可
+	- コミットメッセージに `docs:` を明記
+	- ドキュメント責任者・レビュワー明確化（大規模PJの場合）
+
+## 6. CI/CD・セキュリティ
+
+!!! tip "CI/CD・セキュリティ運用"
+	- PR作成時に自動テスト・Lint・セキュリティスキャンを実行
+	- Secret管理（GitHub ActionsのsecretsやDependabot alerts等）を徹底
+	- mainブランチへのデプロイはCI経由のみ
+
+## 7. コミュニケーション
+
+!!! tip "推奨"
+	- Issue/PRコメントは敬意を持って建設的に
+	- Discussionsやチャットツールも活用
+
+---
+
+## 日々の開発フロー例
+
+1. ブランチ作成
+	```bash
+	git checkout -b feature/login-screen
+	```
+2. 実装 & ドキュメント更新
+	```bash
+	# コードとドキュメントはセットでコミット
+	git add src/login.ts docs/specs.md
+	git commit -m "feat(auth): login implementation and docs update"
+	```
+3. PR作成 & マージ
+	- GitHub上でPRを作成
+	- CI(Lint/Test)が通っていることを確認
+	- マージ後、自動的にPortalへ同期
+
+## ディレクトリ構成例
+
+```text
+RepoRoot/
+├── .github/      # CI設定
+├── src/          # ソースコード
+├── docs/         # ドキュメント
+│   ├── index.md
+│   └── images/
+└── mkdocs.yml    # ドキュメント設定
+```
