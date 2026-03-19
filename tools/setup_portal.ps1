@@ -1,91 +1,99 @@
-# PowerShell版 setup_portal.ps1
-# ==========================================
+﻿# ==========================================
 # プロジェクト立ち上げ自動化スクリプト (PowerShell版)
 # ==========================================
-
-param(
-    [Parameter(Mandatory=$true)][string]$PortalName,
-    [Parameter(Mandatory=$true)][string]$AppName
-)
-
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = "Stop"
 
 # 設定値
-$OrgName = "tinayrum"
-$TemplatePortal = "template_portal"
-$TemplateApp = "template_app"
+$ORG_NAME = "tinayrum"
+$TEMPLATE_PORTAL = "template_portal"
+$TEMPLATE_APP = "template_app"
 
-# gh CLI ログイン確認
-if (-not (gh auth status 2>$null)) {
-    Write-Host "エラー: GitHub CLI (gh) にログインしていません。" -ForegroundColor Red
+# 引数チェック
+if ($args.Count -ne 2) {
+    Write-Host "使用法: .\setup_portal.ps1 <新規ポータル名> <新規アプリ名>" -ForegroundColor Yellow
+    Write-Host "例: .\setup_portal.ps1 ProjectA_portal ProjectA_app"
+    exit 1
+}
+
+$PORTAL_NAME = $args[0]
+$APP_NAME = $args[1]
+
+# GitHub CLI ログイン確認
+if (!(Get-Command gh -ErrorAction SilentlyContinue)) {
+    Write-Error "GitHub CLI (gh) がインストールされていません。"
     exit 1
 }
 
 gh auth setup-git
 
-# PAT取得ロジック (秘密ファイル -> 手動入力)
-$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-$PatFile = Join-Path $ScriptDir ".secret_pat"
-$AdminToken = $null
+# ========================================================
+# PAT取得ロジック
+# ========================================================
+$SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
+$PAT_FILE = Join-Path $SCRIPT_DIR ".secret_pat"
+$ADMIN_TOKEN = ""
 
-if (Test-Path $PatFile) {
-    $AdminToken = Get-Content $PatFile -Raw | Out-String
-    $AdminToken = $AdminToken.Trim()
-    if ($AdminToken) {
-        Write-Host "✅ 秘密ファイル(.secret_pat)からPATを自動取得しました。"
+if (Test-Path $PAT_FILE) {
+    $ADMIN_TOKEN = (Get-Content $PAT_FILE -Raw).Trim()
+    if ($ADMIN_TOKEN) {
+        Write-Host "✅ 秘密ファイルからPATを自動取得しました。" -ForegroundColor Green
     }
 }
 
-if (-not $AdminToken) {
-    Write-Host "--------------------------------------------------"
+if (-not $ADMIN_TOKEN) {
+    Write-Host "--------------------------------------------------" -ForegroundColor Cyan
     Write-Host "管理者用PAT(Personal Access Token)を入力してください。"
     Write-Host "--------------------------------------------------"
-    $AdminToken = Read-Host -AsSecureString "PAT"
-    $AdminToken = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($AdminToken))
+    $ADMIN_TOKEN = Read-Host "PATを入力"
 }
 
-if (-not $AdminToken) {
-    Write-Host "エラー: PATが取得できませんでした。処理を中止します。" -ForegroundColor Red
+if (-not $ADMIN_TOKEN) {
+    Write-Error "エラー: PATが取得できませんでした。"
     exit 1
 }
 
-# 作業ディレクトリの移動: ワークスペースルートへ
-$WorkDir = Resolve-Path (Join-Path $ScriptDir "../..")
-Set-Location $WorkDir
-Write-Host "作業場所を移動しました: $(Get-Location)"
+# ========================================================
+# 作業ディレクトリの移動
+# ========================================================
+$WORK_DIR = (Get-Item $SCRIPT_DIR).Parent.Parent.FullName
+Set-Location $WORK_DIR
+Write-Host "作業場所: $(Get-Location)" -ForegroundColor Gray
 
-Write-Host "🚀 プロジェクト立ち上げを開始します..."
+Write-Host "🚀 プロジェクト立ち上げを開始します..." -ForegroundColor Cyan
 
 # 1. リポジトリ作成
 Write-Host "Creating Portal Repository..."
-gh repo create "$OrgName/$PortalName" --template "$OrgName/$TemplatePortal" --private --clone
+gh repo create "$ORG_NAME/$PORTAL_NAME" --template "$ORG_NAME/$TEMPLATE_PORTAL" --private --clone
 
 Write-Host "Creating App Repository..."
-gh repo create "$OrgName/$AppName" --template "$OrgName/$TemplateApp" --private
+gh repo create "$ORG_NAME/$APP_NAME" --template "$ORG_NAME/$TEMPLATE_APP" --private
 
 # 2. Secret & Variable 設定
 Write-Host "Setting Secrets & Variables..."
-gh secret set ORG_ADMIN_TOKEN -b "$AdminToken" --repo "$OrgName/$PortalName"
-gh secret set ORG_ADMIN_TOKEN -b "$AdminToken" --repo "$OrgName/$AppName"
-gh variable set PORTAL_REPO_NAME --body "$PortalName" --repo "$OrgName/$AppName"
+$ADMIN_TOKEN | gh secret set ORG_ADMIN_TOKEN --repo "$ORG_NAME/$PORTAL_NAME"
+$ADMIN_TOKEN | gh secret set ORG_ADMIN_TOKEN --repo "$ORG_NAME/$APP_NAME"
+gh variable set PORTAL_REPO_NAME --body "$PORTAL_NAME" --repo "$ORG_NAME/$APP_NAME"
 
 # 3. Subtree連携
 Write-Host "Configuring Subtree..."
-Set-Location $PortalName
+Set-Location $PORTAL_NAME
 
-git remote add $AppName "https://github.com/$OrgName/$AppName.git"
+# リモート追加 & Fetch
+git remote add "$APP_NAME" "https://github.com/$ORG_NAME/$APP_NAME.git"
 Write-Host "Fetching app repository..."
-git fetch $AppName main
+git fetch "$APP_NAME" main
 
+# Subtree追加
 Write-Host "Adding subtree..."
-git subtree add --prefix="apps/$AppName" $AppName main --squash -m "init: link $AppName"
+git subtree add --prefix="apps/$APP_NAME" "$APP_NAME" main --squash -m "init: link $APP_NAME"
 
+# Push
 git push origin main
 
 Set-Location ..
 
-Write-Host "=========================================="
+Write-Host "==========================================" -ForegroundColor Green
 Write-Host "✅ セットアップ完了！"
-Write-Host "  Portal: https://github.com/$OrgName/$PortalName"
-Write-Host "  App:    https://github.com/$OrgName/$AppName"
+Write-Host "  Portal: https://github.com/$ORG_NAME/$PORTAL_NAME"
+Write-Host "  App:    https://github.com/$ORG_NAME/$APP_NAME"
 Write-Host "=========================================="
