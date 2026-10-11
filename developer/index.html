@@ -1,0 +1,917 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="tinayrum Organization の GitHub 運用ガイド">
+      
+      
+        <meta name="author" content="Tinayrum Solutions">
+      
+      
+        <link rel="canonical" href="https://tinayrum.github.io/.github/developer/">
+      
+      
+        <link rel="prev" href="../admin/">
+      
+      
+        <link rel="next" href="../tools/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>開発者ガイド - Tinayrum Solutions Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Tinayrum Solutions Documentation" class="md-header__button md-logo" aria-label="Tinayrum Solutions Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tinayrum Solutions Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              開発者ガイド
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="light-blue"  aria-label="ダークモードへ切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードへ切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="light-blue"  aria-label="ライトモードへ切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードへ切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tinayrum/.github" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tinayrum/.github
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../admin/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  管理者ガイド
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  開発者ガイド
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../tools/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  ツール仕様
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Tinayrum Solutions Documentation" class="md-nav__button md-logo" aria-label="Tinayrum Solutions Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tinayrum Solutions Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tinayrum/.github" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tinayrum/.github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理者ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発者ガイド
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発者ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本方針
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 駆動の進め方と承認ゲート
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        作業報告
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ブランチ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        コミットと PR タイトル
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        共通 CI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ツール仕様
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本方針
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 駆動の進め方と承認ゲート
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        作業報告
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ブランチ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        コミットと PR タイトル
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        共通 CI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">開発者ガイド<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">正本</p>
+<p>開発ルールの正本は <a href="https://github.com/tinayrum/temp/blob/main/docs/development.md">temp の <code>docs/development.md</code></a> です。
+テンプレートから作ったリポジトリには同じページが入っています。このページはその要約です。食い違いがあれば正本に従ってください。</p>
+</div>
+<h2 id="_2">基本方針<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Issue 駆動</strong>：起票・相談・進捗・報告はすべて GitHub Issue で行う。1 Issue = 1 ブランチ = 1 PR。</li>
+<li><strong>main ＝ リリース / develop ＝ ステージング</strong>：日々の変更は develop に集め、リリース時に main へ反映する。どちらにも直接 push しない。</li>
+<li><strong>Docs as Code</strong>：<code>src/</code> を変えた PR では <code>docs/</code> も更新する。</li>
+<li><strong>CI 必須</strong>：CI が通らない PR はマージしない。</li>
+</ul>
+<h2 id="issue">Issue 駆動の進め方と承認ゲート<a class="headerlink" href="#issue" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    I[Issue 起票] --&gt; P[計画を Issue に書く]
+    P --&gt; G1{G1 着手承認}
+    G1 -- 承認 --&gt; B[ブランチ作成]
+    B --&gt; W[実装 + docs 更新]
+    W --&gt; R[作業報告を Issue に投稿]
+    R --&gt; PR[PR 作成 → CI]
+    PR --&gt; G2{G2 マージ承認}
+    G2 -- 承認 --&gt; D[develop へマージ]
+    D --&gt; G3{G3 リリース承認}
+    G3 -- 承認 --&gt; M[main へマージ = リリース]</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ゲート</th>
+<th style="text-align: left;">タイミング</th>
+<th style="text-align: left;">選択肢の例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">G1 着手承認</td>
+<td style="text-align: left;">計画を Issue に書いた後</td>
+<td style="text-align: left;">承認して着手（推奨）/ 計画を修正 / 中止</td>
+</tr>
+<tr>
+<td style="text-align: left;">G2 マージ承認</td>
+<td style="text-align: left;">PR 作成・CI 通過・作業報告の後</td>
+<td style="text-align: left;">develop にマージ（推奨）/ 修正してから再確認 / 保留</td>
+</tr>
+<tr>
+<td style="text-align: left;">G3 リリース承認</td>
+<td style="text-align: left;">develop の確認後</td>
+<td style="text-align: left;">main にリリース（推奨）/ 延期 / 一部だけ release/ で出す</td>
+</tr>
+</tbody>
+</table>
+<p>承認・質問は <strong>選択肢方式</strong>（1 回 1〜4 問、各 2〜4 択、推奨案を先頭に「（推奨）」付きで）で行い、回答を Issue に残します。</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gu">### 質疑記録</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">-</span><span class="w"> </span>問い: &lt;質問文&gt;
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">-</span><span class="w"> </span>選択肢: A（推奨）/ B / C
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">-</span><span class="w"> </span>回答: B
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">-</span><span class="w"> </span>次の行動: &lt;回答を受けて何をするか&gt;
+</span></code></pre></div>
+<h2 id="_3">作業報告<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>区切り（計画完了・実装完了・PR 作成・マージ後）ごとに Issue にコメントし、PR 本文の「作業報告」にも同じ内容を書きます。</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">## 作業報告（&lt;フェーズ名&gt;）</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">-</span><span class="w"> </span>対象 Issue: #&lt;番号&gt; / ブランチ: &lt;branch&gt; / PR: #&lt;番号&gt;
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">-</span><span class="w"> </span>変更したファイル:
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">-</span><span class="w"> </span>実行したコマンドと結果:
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">-</span><span class="w"> </span>確認できていないこと:
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">-</span><span class="w"> </span>次のアクション:
+</span></code></pre></div>
+<h2 id="_4">ブランチ<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Prefix</th>
+<th style="text-align: left;">用途</th>
+<th style="text-align: left;">分岐元</th>
+<th style="text-align: left;">マージ先</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>feature/</code></td>
+<td style="text-align: left;">新機能（Minor）</td>
+<td style="text-align: left;"><code>develop</code></td>
+<td style="text-align: left;"><code>develop</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>bugfix/</code></td>
+<td style="text-align: left;">バグ修正（Patch）</td>
+<td style="text-align: left;"><code>develop</code></td>
+<td style="text-align: left;"><code>develop</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docs/</code></td>
+<td style="text-align: left;">ドキュメントのみ（Patch）</td>
+<td style="text-align: left;"><code>develop</code></td>
+<td style="text-align: left;"><code>develop</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>chore/</code></td>
+<td style="text-align: left;">メンテナンス（Patch）</td>
+<td style="text-align: left;"><code>develop</code></td>
+<td style="text-align: left;"><code>develop</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>release/</code></td>
+<td style="text-align: left;">リリース準備</td>
+<td style="text-align: left;"><code>develop</code></td>
+<td style="text-align: left;"><code>main</code> → <code>develop</code> に戻す</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hotfix/</code></td>
+<td style="text-align: left;">緊急修正</td>
+<td style="text-align: left;"><code>main</code></td>
+<td style="text-align: left;"><code>main</code> → <code>develop</code> に戻す</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>develop</code></td>
+<td style="text-align: left;">ステージング</td>
+<td style="text-align: left;"><code>main</code></td>
+<td style="text-align: left;"><code>main</code>（リリース）</td>
+</tr>
+</tbody>
+</table>
+<p>組み合わせは CI（<code>check_branch.yml</code>）が検査します。</p>
+<div class="admonition note">
+<p class="admonition-title"><code>.github</code> リポジトリは main のみ</p>
+<p>このリポジトリ（<code>.github</code>）は develop を持たず、作業ブランチから main へ直接 PR を出します。CI は prefix だけを検査します。</p>
+</div>
+<h2 id="pr">コミットと PR タイトル<a class="headerlink" href="#pr" title="Permanent link">&para;</a></h2>
+<ul>
+<li>形式は <code>type(scope): subject</code>（type：<code>feat</code> / <code>fix</code> / <code>docs</code> / <code>chore</code> / <code>refactor</code> / <code>test</code> / <code>ci</code>、scope は任意）。</li>
+<li>PR タイトルも同じ形式にします。マージは squash で、コミット名は PR タイトルになります。</li>
+<li>develop → main（リリース）の PR は、develop で検査済みのためコミット・タイトル検査を行いません。</li>
+</ul>
+<h2 id="ci">共通 CI<a class="headerlink" href="#ci" title="Permanent link">&para;</a></h2>
+<p>各リポジトリのワークフローは <code>.github</code> の再利用ワークフローを呼び出します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">再利用ワークフロー</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>reusable-ci.yml</code></td>
+<td style="text-align: left;"><code>mkdocs build --strict</code>、コミットメッセージ・PR タイトル検査、Docs as Code 検査</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>reusable-check-branch.yml</code></td>
+<td style="text-align: left;">ブランチ名 prefix とマージ先の組み合わせ検査</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>reusable-release-drafter.yml</code></td>
+<td style="text-align: left;">main への push でリリースノート・タグを作成（<code>GITHUB_TOKEN</code>）</td>
+</tr>
+</tbody>
+</table>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">ci</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tinayrum/.github/.github/workflows/reusable-ci.yml@main</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">"3.12"</span>
+</span></code></pre></div>
+<p>入力（<code>inputs</code>）の一覧は各ワークフローの先頭コメントを参照してください。</p>
+<p>Docs as Code 検査が不要な PR は <code>skip-docs</code> ラベルを付け、理由を PR 本文に書きます。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

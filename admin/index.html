@@ -1,0 +1,969 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="tinayrum Organization の GitHub 運用ガイド">
+      
+      
+        <meta name="author" content="Tinayrum Solutions">
+      
+      
+        <link rel="canonical" href="https://tinayrum.github.io/.github/admin/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../developer/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>管理者ガイド - Tinayrum Solutions Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Tinayrum Solutions Documentation" class="md-header__button md-logo" aria-label="Tinayrum Solutions Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tinayrum Solutions Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              管理者ガイド
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="light-blue"  aria-label="ダークモードへ切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードへ切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="light-blue"  aria-label="ライトモードへ切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードへ切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tinayrum/.github" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tinayrum/.github
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  管理者ガイド
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../developer/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  開発者ガイド
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../tools/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  ツール仕様
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Tinayrum Solutions Documentation" class="md-nav__button md-logo" aria-label="Tinayrum Solutions Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Tinayrum Solutions Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tinayrum/.github" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tinayrum/.github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理者ガイド
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理者ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 新しいリポジトリを作る
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 既存リポジトリに後から設定する
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-temp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. テンプレート（temp）の更新
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Organization 設定で人がやること
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branch-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ブランチ保護
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ブランチ保護">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#push" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        緊急時に管理者が直接 push する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        必須チェックが「待機中（Expected）」のまま止まらないために
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Free プランの制約
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トラブルシューティング
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発者ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ツール仕様
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 新しいリポジトリを作る
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 既存リポジトリに後から設定する
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-temp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. テンプレート（temp）の更新
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Organization 設定で人がやること
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branch-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ブランチ保護
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ブランチ保護">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#push" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        緊急時に管理者が直接 push する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        必須チェックが「待機中（Expected）」のまま止まらないために
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Free プランの制約
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トラブルシューティング
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">管理者ガイド<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="1">1. 新しいリポジトリを作る<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">リポジトリは new_repo で作る</p>
+<p>GitHub の画面から手で作ると、develop の作成・既定ブランチ・squash 設定・ラベル同期が漏れます。必ず <code>tools/new_repo</code> を使ってください。</p>
+</div>
+<ol>
+<li><code>gh auth login</code> 済みであることを確認する。</li>
+<li>命名規則（<a href="../#naming">Home</a>）に沿った名前を決める。</li>
+<li><code>.github</code> リポジトリのクローンで実行する。</li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">bash</label><label for="__tabbed_1_2">PowerShell</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./tools/new_repo.sh<span class="w"> </span>poc-sample<span class="w">            </span><span class="c1"># 非公開（既定）</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>./tools/new_repo.sh<span class="w"> </span>prod-sample<span class="w"> </span>--public<span class="w">  </span><span class="c1"># 公開</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">.\</span><span class="n">tools</span><span class="p">\</span><span class="n">new_repo</span><span class="p">.</span><span class="n">ps1</span> <span class="n">poc-sample</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">.\</span><span class="n">tools</span><span class="p">\</span><span class="n">new_repo</span><span class="p">.</span><span class="n">ps1</span> <span class="n">prod-sample</span> <span class="n">-Public</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>スクリプトは「作成 → コピー待ち → develop 作成 → 設定 → ラベル同期 → クローン」を行います。詳細は<a href="../tools/">ツール仕様</a>を参照してください。</p>
+<p>作成後は、新しいリポジトリの <code>README.md</code> にある「テンプレートから作成した直後にやること」を進めます。</p>
+<h2 id="2">2. 既存リポジトリに後から設定する<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>テンプレート以外から作ったリポジトリや、設定が漏れているリポジトリには、次を実行します。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./tools/new_repo.sh<span class="w"> </span>--configure-only<span class="w"> </span>&lt;repo-name&gt;
+</span></code></pre></div>
+<p>develop の作成（既にあればスキップ）・リポジトリ設定・ラベル同期だけを行います。何度実行しても結果は同じです。</p>
+<p>ワークフローを共通 CI に揃える場合は、temp の <code>.github/workflows/</code> にある呼び出し側のワークフロー（<code>ci.yml</code>・<code>check_branch.yml</code>・<code>release-drafter.yml</code>）をコピーします。
+temp に無くなったワークフローが残っている場合は削除します。</p>
+<h2 id="3-temp">3. テンプレート（temp）の更新<a class="headerlink" href="#3-temp" title="Permanent link">&para;</a></h2>
+<ul>
+<li>開発ルールを変えるときは、temp の <code>docs/development.md</code>（正本）を先に更新します。</li>
+<li>CI の中身を変えるときは、<code>.github</code> の再利用ワークフローを更新します。呼び出し側は <code>@main</code> を参照しているため、マージした時点で全リポジトリに反映されます。互換性のない変更（入力の削除・意味の変更）は避け、必要なら入力を追加して既定値で従来の動きを保ちます。</li>
+<li>Issue / PR テンプレートとラベル（<code>labels.yml</code>）は temp と <code>.github</code> の両方を揃えます。<code>.github</code> 側は、独自テンプレートを持たないリポジトリの既定値になります。</li>
+</ul>
+<h2 id="4-organization">4. Organization 設定で人がやること<a class="headerlink" href="#4-organization" title="Permanent link">&para;</a></h2>
+<p>画面操作が必要な設定です。変更する場合は、Issue で承認を得てから行います。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">設定</th>
+<th style="text-align: left;">場所</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">既定ラベル</td>
+<td style="text-align: left;">Organization Settings → Repository → Repository labels</td>
+<td style="text-align: left;"><code>labels.yml</code> と同じラベルを登録しておく（new_repo のラベル同期が失敗したときの保険）</td>
+</tr>
+<tr>
+<td style="text-align: left;">Actions の許可</td>
+<td style="text-align: left;">Organization Settings → Actions → General</td>
+<td style="text-align: left;">「Allow all actions and reusable workflows」、または <code>tinayrum/*</code> と使用中の action を許可する</td>
+</tr>
+<tr>
+<td style="text-align: left;">ワークフローの権限</td>
+<td style="text-align: left;">Organization Settings → Actions → General → Workflow permissions</td>
+<td style="text-align: left;">既定は「Read repository contents」のままにする。書き込みが必要なワークフローは <code>permissions:</code> で個別に付与している</td>
+</tr>
+<tr>
+<td style="text-align: left;">ブランチ保護（公開リポジトリ）</td>
+<td style="text-align: left;">各リポジトリの Settings → Branches</td>
+<td style="text-align: left;">設定済み。内容と変更手順は次の「5. ブランチ保護」を参照</td>
+</tr>
+<tr>
+<td style="text-align: left;">テンプレート指定</td>
+<td style="text-align: left;">temp の Settings → General</td>
+<td style="text-align: left;">「Template repository」が有効であることを確認する</td>
+</tr>
+</tbody>
+</table>
+<h2 id="branch-protection">5. ブランチ保護<a class="headerlink" href="#branch-protection" title="Permanent link">&para;</a></h2>
+<p>Free プランでも公開リポジトリならブランチ保護を使えます。次の 3 本に設定しています。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">リポジトリ / ブランチ</th>
+<th style="text-align: left;">必須チェック</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>.github</code> / main</td>
+<td style="text-align: left;"><code>check / Branch name and merge target</code>、<code>ci / Docs build (mkdocs --strict)</code>、<code>ci / Commit message (type(scope): subject)</code>、<code>ci / PR title (type(scope): subject)</code>、<code>tools/new_repo test</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>temp</code> / main・develop</td>
+<td style="text-align: left;"><code>check / Branch name and merge target</code>、<code>ci / Docs build (mkdocs --strict)</code>、<code>ci / Commit message (type(scope): subject)</code>、<code>ci / PR title (type(scope): subject)</code>、<code>ci / Docs as Code (src/ changes need docs/)</code></td>
+</tr>
+</tbody>
+</table>
+<p>共通の設定：PR 必須（承認数 0。承認は Issue の G2 で記録する）、force push 禁止、削除禁止、<strong>管理者も例外にしない</strong>（Do not allow bypassing / <code>enforce_admins</code>）。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 現在の設定を確認する</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>gh<span class="w"> </span>api<span class="w"> </span>repos/tinayrum/&lt;repo&gt;/branches/&lt;branch&gt;/protection<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>--jq<span class="w"> </span><span class="s1">'{admins: .enforce_admins.enabled, checks: .required_status_checks.contexts}'</span>
+</span></code></pre></div>
+<h3 id="push">緊急時に管理者が直接 push する<a class="headerlink" href="#push" title="Permanent link">&para;</a></h3>
+<p>管理者も保護の対象なので、直接 push が必要なときは一時的に解除します。解除も Issue で承認を得てから行い、作業後すぐに戻します。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>gh<span class="w"> </span>api<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span>repos/tinayrum/&lt;repo&gt;/branches/&lt;branch&gt;/protection/enforce_admins<span class="w">  </span><span class="c1"># 解除</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># …作業…</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>gh<span class="w"> </span>api<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>repos/tinayrum/&lt;repo&gt;/branches/&lt;branch&gt;/protection/enforce_admins<span class="w">    </span><span class="c1"># 戻す</span>
+</span></code></pre></div>
+<h3 id="expected">必須チェックが「待機中（Expected）」のまま止まらないために<a class="headerlink" href="#expected" title="Permanent link">&para;</a></h3>
+<p>必須チェックは、その名前のチェックが報告されないと待機中のままになり、マージできません。</p>
+<ul>
+<li>
+<p><strong>job 名を変えるとき</strong>：呼び出し側 job 名（<code>ci</code>・<code>check</code>）と再利用ワークフロー側の job 名（<code>name:</code>）を合わせたものがチェック名になります（例：<code>ci / Docs build (mkdocs --strict)</code>）。どちらかを変える場合は、</p>
+<ol>
+<li>変更を入れた PR で新しい名前のチェックが 1 回実行されるのを待つ</li>
+<li>必須チェックを新しい名前に更新する（<code>gh api -X PATCH …/protection/required_status_checks -F 'contexts[]=…'</code>）</li>
+<li>それから PR をマージする</li>
+</ol>
+<p>再利用ワークフローの job 名を変えると、呼び出している保護付きのリポジトリ（temp）すべてに影響します。
+- <strong><code>paths</code> / <code>paths-ignore</code> を付けないこと</strong>：必須チェックを出すワークフロー（<code>ci.yml</code>・<code>check_branch.yml</code>）に付けると、該当しない PR ではワークフロー自体が起動せず、待機中のまま止まります。対象を絞りたい場合は、ワークフローは毎回起動させ、job の中で変更ファイルを調べて早期に成功終了させます。
+- <code>if:</code> で job ごとスキップする（例：develop → main の PR での commit-lint）のは問題ありません。スキップされた job は成功として扱われます。</p>
+</li>
+</ul>
+<h2 id="6-free">6. Free プランの制約<a class="headerlink" href="#6-free" title="Permanent link">&para;</a></h2>
+<p>非公開リポジトリでは、ブランチ保護・Organization Secret・GitHub Pages が使えません。対策は <a href="../#free-plan">Home の「Free プランの制約と対策」</a> にまとめています。</p>
+<h2 id="_2">トラブルシューティング<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">認証エラー</p>
+<p><code>gh auth status</code> で状態を確認し、必要なら <code>gh auth login</code> をやり直してください。リポジトリ作成には Organization でのリポジトリ作成権限が必要です。</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Sync Labels が起動できない</p>
+<p>作成直後は Actions の準備が終わっておらず失敗することがあります。リポジトリの Actions タブから「Sync Labels」を手動実行してください。</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">main ブランチが作成されませんでした</p>
+<p>テンプレートのコピーに時間がかかっています。GitHub 上でリポジトリを確認し、main ができていれば <code>--configure-only</code> で続きの設定を行ってください。</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
