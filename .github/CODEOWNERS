@@ -1,2 +1,4 @@
-<!-- # Default code owners for repository-level changes and docs -->
-* @tinayrum
+# デフォルトのレビュー担当。Organization のチーム名またはユーザー名を指定する。
+# 例: * @tinayrum/reviewers
+# docs のみ別担当にする場合:
+# docs/ @tinayrum/docs-reviewers

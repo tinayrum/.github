@@ -1,5 +1,6 @@
-
-blank_issues_enabled: true
+# Organization 共通の既定値（独自テンプレートを持たないリポジトリで使われる）
+blank_issues_enabled: false
 contact_links:
-  - name: 質問・Q&A（Discussions）
-    about: 使用方法や一般的な質問は、こちらの Blank_Issue をご利用ください。
+  - name: 運用ガイド（GitHub Pages）
+    url: https://tinayrum.github.io/.github/
+    about: 開発ルール・リポジトリの作り方などは運用ガイドを参照してください。
