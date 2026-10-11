@@ -1,0 +1,36 @@
+# .github 自身の CI。配布している再利用ワークフローを自分でも呼び、動作確認を兼ねる。
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    # edited: PR タイトルやマージ先（base）を変更したときにも再検査する
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/reusable-ci.yml
+    with:
+      # docs/ の作り直し（#9）までは既存ページのリンク切れで --strict が通らないため止めておく
+      docs-build: false
+      # src/ を持たないリポジトリなので Docs as Code 検査は行わない
+      docs-as-code: false
+
+  # 配布しているシェルスクリプトの試験
+  tools-test:
+    name: tools/new_repo test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: bash -n / shellcheck
+        run: |
+          bash -n tools/new_repo.sh
+          shellcheck tools/new_repo.sh tools/tests/new_repo_test.sh
+      - name: Stub test (bash)
+        run: bash tools/tests/new_repo_test.sh
+      - name: Stub test (PowerShell)
+        shell: pwsh
+        run: ./tools/tests/new_repo_test.ps1

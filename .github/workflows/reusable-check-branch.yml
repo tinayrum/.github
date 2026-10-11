@@ -1,0 +1,88 @@
+# ブランチ名とマージ先の検査（再利用ワークフロー）
+#
+# 呼び出し例（各リポジトリの .github/workflows/check_branch.yml）:
+#
+#   on:
+#     pull_request:
+#       types: [opened, synchronize, reopened, edited]   # edited: マージ先を変えたときにも再検査する
+#   jobs:
+#     check:
+#       uses: tinayrum/.github/.github/workflows/reusable-check-branch.yml@main
+#
+# strategy:
+#   main-develop（既定）: main = リリース / develop = ステージング。アプリリポジトリ向け
+#   main-only           : main だけで運用する。.github など。prefix のみ検査する
+name: Reusable Check Branch
+
+on:
+  workflow_call:
+    inputs:
+      strategy:
+        description: "ブランチ戦略（main-develop / main-only）"
+        type: string
+        default: "main-develop"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Branch name and merge target
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if branch name or merge target is invalid
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+          STRATEGY: ${{ inputs.strategy }}
+        run: |
+          echo "PR: '$HEAD_REF' -> '$BASE_REF'（strategy: $STRATEGY）"
+          prefixes='^(feature|bugfix|docs|hotfix|chore|release)/'
+
+          case "$STRATEGY" in
+            main-only)
+              if [[ ! "$HEAD_REF" =~ $prefixes ]]; then
+                echo "❌ Error: Branch '$HEAD_REF' is invalid."
+                echo "Allowed prefixes: feature/, bugfix/, docs/, hotfix/, chore/, release/"
+                exit 1
+              fi
+              echo "✅ '$HEAD_REF' is allowed."
+              exit 0
+              ;;
+            main-develop) ;;
+            *)
+              echo "❌ Error: Unknown strategy '$STRATEGY'（main-develop / main-only）"
+              exit 1
+              ;;
+          esac
+
+          # 1) ブランチ名の prefix
+          if [[ "$HEAD_REF" != "develop" && ! "$HEAD_REF" =~ $prefixes ]]; then
+            echo "❌ Error: Branch '$HEAD_REF' is invalid."
+            echo "Allowed prefixes: feature/, bugfix/, docs/, hotfix/, chore/, release/ (or 'develop')"
+            exit 1
+          fi
+
+          # 2) マージ先との組み合わせ（main = リリース / develop = ステージング）
+          case "$BASE_REF" in
+            main)
+              if [[ "$HEAD_REF" == "develop" || "$HEAD_REF" =~ ^(release|hotfix)/ ]]; then
+                echo "✅ '$HEAD_REF' -> main is allowed."
+              else
+                echo "❌ Error: Only develop, release/* and hotfix/* can target main."
+                echo "Open this PR against 'develop' instead."
+                exit 1
+              fi
+              ;;
+            develop)
+              if [[ "$HEAD_REF" =~ ^(feature|bugfix|docs|chore|release|hotfix)/ ]]; then
+                echo "✅ '$HEAD_REF' -> develop is allowed."
+              else
+                echo "❌ Error: '$HEAD_REF' cannot target develop."
+                exit 1
+              fi
+              ;;
+            *)
+              echo "ℹ️ Base '$BASE_REF' is not main/develop. Only the prefix was checked."
+              ;;
+          esac
