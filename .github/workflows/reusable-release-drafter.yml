@@ -1,6 +1,6 @@
 # Release Drafter（再利用ワークフロー）
 #
-# GITHUB_TOKEN で動かす。PAT（ORG_ADMIN_TOKEN）は不要。
+# GITHUB_TOKEN で動かす。追加の Secret は不要。
 # 呼び出し側でも permissions を付与すること（再利用側は呼び出し側の権限を超えられない）。
 #
 # 呼び出し例（各リポジトリの .github/workflows/release-drafter.yml）:

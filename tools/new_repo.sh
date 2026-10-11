@@ -23,7 +23,7 @@
 #   NEW_REPO_WAIT_RETRIES   コピー待ちのリトライ回数（既定: 20）
 #   NEW_REPO_WAIT_INTERVAL  コピー待ちの間隔・秒（既定: 3）
 #
-# PAT・Secret は使わない。gh にログインしたユーザーの権限で実行する。
+# Secret は使わない。gh にログインしたユーザーの権限で実行する。
 
 set -euo pipefail
 

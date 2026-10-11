@@ -14,8 +14,7 @@ jobs:
   ci:
     uses: ./.github/workflows/reusable-ci.yml
     with:
-      # docs/ の作り直し（#9）までは既存ページのリンク切れで --strict が通らないため止めておく
-      docs-build: false
+      docs-build: true
       # src/ を持たないリポジトリなので Docs as Code 検査は行わない
       docs-as-code: false
 

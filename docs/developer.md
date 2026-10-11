@@ -2,85 +2,103 @@
 
 ---
 
-## 1. ブランチ命名規則
+!!! info "正本"
+    開発ルールの正本は [temp の `docs/development.md`](https://github.com/tinayrum/temp/blob/main/docs/development.md) です。
+    テンプレートから作ったリポジトリには同じページが入っています。このページはその要約です。食い違いがあれば正本に従ってください。
 
-!!! note "Prefix運用"
-	- feature/、bugfix/、hotfix/、release/、docs/、chore/ など
-	- hotfix/はmain直マージ、必要に応じdevelopへcherry-pick
+## 基本方針
 
-## 2. コミットメッセージ規約
+- **Issue 駆動**：起票・相談・進捗・報告はすべて GitHub Issue で行う。1 Issue = 1 ブランチ = 1 PR。
+- **main ＝ リリース / develop ＝ ステージング**：日々の変更は develop に集め、リリース時に main へ反映する。どちらにも直接 push しない。
+- **Docs as Code**：`src/` を変えた PR では `docs/` も更新する。
+- **CI 必須**：CI が通らない PR はマージしない。
 
-!!! tip "Conventional Commits形式"
-	- `type(scope): subject` 例: `feat(api): add login`
-	- type例: feat, fix, docs, chore, refactor, test, ci
-	- scopeは任意、subjectは簡潔に
+## Issue 駆動の進め方と承認ゲート
 
-## 3. Issue・Pull Request 運用
-
-!!! example "運用ポイント"
-	- `.github/ISSUE_TEMPLATE/` のテンプレートを活用
-	- `.github/pull_request_template.md` でレビューチェックリストを活用
-	- Issueは必ずGitHub上で作成
-	- PRはmain直Push禁止、必ずレビューを経由
-
-## 4. コードレビュー
-
-!!! info "レビューの進め方"
-	- 変更内容の品質・一貫性を重視
-	- 明確な説明・レビューチェックリストを記載
-	- 建設的なフィードバックを心がける
-
-## 5. ドキュメント管理
-
-!!! info "Docs as Code原則"
-	- コード修正時はdocs/も必ず更新
-	- ドキュメントのみのPRも可
-	- コミットメッセージに `docs:` を明記
-	- ドキュメント責任者・レビュワー明確化（大規模PJの場合）
-
-## 6. CI/CD・セキュリティ
-
-!!! tip "CI/CD・セキュリティ運用"
-	- PR作成時に自動テスト・Lint・セキュリティスキャンを実行
-	- Secret管理（GitHub ActionsのsecretsやDependabot alerts等）を徹底
-	- mainブランチへのデプロイはCI経由のみ
-
-## 7. コミュニケーション
-
-!!! tip "推奨"
-	- Issue/PRコメントは敬意を持って建設的に
-	- Discussionsやチャットツールも活用
-
----
-
-## 日々の開発フロー例
-
-1. ブランチ作成
-	```bash
-	git checkout -b feature/login-screen
-	```
-2. 実装 & ドキュメント更新
-	```bash
-	# コードとドキュメントはセットでコミット
-	git add src/login.ts docs/specs.md
-	git commit -m "feat(auth):login implementation and docs update"
-	```
-3. PR作成 & マージ
-	- GitHub上でPRを作成
-	- CI(Lint/Test)が通っていることを確認
-	- マージ後、自動的にPortalへ同期
-
-## ディレクトリ構成例
-
-```text
-RepoRoot/
-├── .github/      # CI設定
-├── src/          # ソースコード
-├── docs/         # ドキュメント
-│   ├── index.md
-│   └── images/
-└── mkdocs.yml    # ドキュメント設定
+```mermaid
+flowchart LR
+    I[Issue 起票] --> P[計画を Issue に書く]
+    P --> G1{G1 着手承認}
+    G1 -- 承認 --> B[ブランチ作成]
+    B --> W[実装 + docs 更新]
+    W --> R[作業報告を Issue に投稿]
+    R --> PR[PR 作成 → CI]
+    PR --> G2{G2 マージ承認}
+    G2 -- 承認 --> D[develop へマージ]
+    D --> G3{G3 リリース承認}
+    G3 -- 承認 --> M[main へマージ = リリース]
 ```
 
----
+| ゲート | タイミング | 選択肢の例 |
+| :--- | :--- | :--- |
+| G1 着手承認 | 計画を Issue に書いた後 | 承認して着手（推奨）/ 計画を修正 / 中止 |
+| G2 マージ承認 | PR 作成・CI 通過・作業報告の後 | develop にマージ（推奨）/ 修正してから再確認 / 保留 |
+| G3 リリース承認 | develop の確認後 | main にリリース（推奨）/ 延期 / 一部だけ release/ で出す |
 
+承認・質問は **選択肢方式**（1 回 1〜4 問、各 2〜4 択、推奨案を先頭に「（推奨）」付きで）で行い、回答を Issue に残します。
+
+```markdown
+### 質疑記録
+- 問い: <質問文>
+- 選択肢: A（推奨）/ B / C
+- 回答: B
+- 次の行動: <回答を受けて何をするか>
+```
+
+## 作業報告
+
+区切り（計画完了・実装完了・PR 作成・マージ後）ごとに Issue にコメントし、PR 本文の「作業報告」にも同じ内容を書きます。
+
+```markdown
+## 作業報告（<フェーズ名>）
+- 対象 Issue: #<番号> / ブランチ: <branch> / PR: #<番号>
+- 変更したファイル:
+- 実行したコマンドと結果:
+- 確認できていないこと:
+- 次のアクション:
+```
+
+## ブランチ
+
+| Prefix | 用途 | 分岐元 | マージ先 |
+| :--- | :--- | :--- | :--- |
+| `feature/` | 新機能（Minor） | `develop` | `develop` |
+| `bugfix/` | バグ修正（Patch） | `develop` | `develop` |
+| `docs/` | ドキュメントのみ（Patch） | `develop` | `develop` |
+| `chore/` | メンテナンス（Patch） | `develop` | `develop` |
+| `release/` | リリース準備 | `develop` | `main` → `develop` に戻す |
+| `hotfix/` | 緊急修正 | `main` | `main` → `develop` に戻す |
+| `develop` | ステージング | `main` | `main`（リリース） |
+
+組み合わせは CI（`check_branch.yml`）が検査します。
+
+!!! note "`.github` リポジトリは main のみ"
+    このリポジトリ（`.github`）は develop を持たず、作業ブランチから main へ直接 PR を出します。CI は prefix だけを検査します。
+
+## コミットと PR タイトル
+
+- 形式は `type(scope): subject`（type：`feat` / `fix` / `docs` / `chore` / `refactor` / `test` / `ci`、scope は任意）。
+- PR タイトルも同じ形式にします。マージは squash で、コミット名は PR タイトルになります。
+- develop → main（リリース）の PR は、develop で検査済みのためコミット・タイトル検査を行いません。
+
+## 共通 CI
+
+各リポジトリのワークフローは `.github` の再利用ワークフローを呼び出します。
+
+| 再利用ワークフロー | 内容 |
+| :--- | :--- |
+| `reusable-ci.yml` | `mkdocs build --strict`、コミットメッセージ・PR タイトル検査、Docs as Code 検査 |
+| `reusable-check-branch.yml` | ブランチ名 prefix とマージ先の組み合わせ検査 |
+| `reusable-release-drafter.yml` | main への push でリリースノート・タグを作成（`GITHUB_TOKEN`） |
+
+```yaml
+jobs:
+  ci:
+    uses: tinayrum/.github/.github/workflows/reusable-ci.yml@main
+    with:
+      python-version: "3.12"
+```
+
+入力（`inputs`）の一覧は各ワークフローの先頭コメントを参照してください。
+
+Docs as Code 検査が不要な PR は `skip-docs` ラベルを付け、理由を PR 本文に書きます。

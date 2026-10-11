@@ -10,7 +10,7 @@
 | `tools/new_repo.ps1` | 同上（PowerShell。Windows PowerShell 5.1 / PowerShell 7） |
 | `tools/tests/new_repo_test.sh` / `.ps1` | 上記の試験（gh をスタブにして呼び出し順序を確認） |
 
-PAT や Secret は使いません。`gh` にログインしたユーザーの権限で動きます。
+Secret は使いません。`gh` にログインしたユーザーの権限で動きます。
 
 ## new_repo
 

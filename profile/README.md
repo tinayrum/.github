@@ -1,85 +1,41 @@
+# Tinayrum Solutions
 
-# Tinayrum Solutions - プロジェクト運用ポータル
+Tinayrum Solutions の GitHub Organization です。
 
-本ポータルは「Portal+App構成」および「App単体構成」の両方に対応しています。
-どちらのリポジトリでも、Docs as Codeによる運用・管理を推奨します。
+## 🧭 Notion と GitHub の役割分担
 
----
+| 道具 | 担当すること |
+| :--- | :--- |
+| **Notion** | 案件・タスク・作業ログ・文書・ナレッジの管理 |
+| **GitHub** | コード、開発タスク（Issue）、リポジトリ内のドキュメント（Docs as Code） |
 
-## 🚀 ナレッジ共有型プロジェクト運用ポータル
+## 📦 リポジトリ構成
 
-当組織は「Docs as Code」を推進し、コードとドキュメントの完全一致・自動連携を徹底しています。
-GitHub ActionsとGit Subtreeによる自動化で、属人化を排除し、常に最新のナレッジ共有を実現します。
+| リポジトリ | 役割 |
+| :--- | :--- |
+| [`.github`](https://github.com/tinayrum/.github) | 組織共通の Issue / PR テンプレート、再利用ワークフロー（共通 CI）、リポジトリ作成ツール、運用ガイド |
+| [`temp`](https://github.com/tinayrum/temp) | テンプレートリポジトリ。新しいリポジトリはここから作る |
+| `client-*` / `prod-*` / `int-*` / `poc-*` | 受託 / 自社プロダクト / 社内 / 検証 のリポジトリ |
 
----
+## 🚀 新しいリポジトリを始める
 
-## 📚 運用ガイドライン & リソース
-
-- [運用ガイドライン (GitHub Pages)](https://tinayrum.github.io/.github/)
-- [管理者ガイド](https://tinayrum.github.io/.github/admin/)
-- [開発者ガイド](https://tinayrum.github.io/.github/developer/)
-- [ツール仕様](https://tinayrum.github.io/.github/tools/)
-- [アプリ単体運用ガイド](https://tinayrum.github.io/.github/app_standalone/)
-
----
-
-## ⚡ プロジェクト立ち上げ・運用フロー
-
-### 1. 準備
-1. 管理リポジトリをCloneし、`tools/.secret_pat` に管理者PATを保存
-2. スクリプトに実行権限を付与
-	```bash
-	chmod +x tools/setup_portal.sh tools/add_app.sh tools/setup_app.sh
-	```
-
-### 2. Portal/Appリポジトリ作成
 ```bash
-# Portal新規作成
-./tools/setup_portal.sh ProjectA_portal
-# App追加
-./tools/add_app.sh ProjectA_portal ProjectB_app
-# App単体新規作成
-./tools/setup_app.sh MyApp
+# tinayrum/.github をクローンして実行（gh auth login 済みであること）
+./tools/new_repo.sh poc-sample
 ```
 
----
+テンプレート `temp` から作成し、develop ブランチ・リポジトリ設定・ラベルまで整えます。
+詳しくは [管理者ガイド](https://tinayrum.github.io/.github/admin/) を参照してください。
 
-## 🔄 自動連携アーキテクチャ概要
+## 📚 運用ガイド
 
-1. **Appリポジトリ**: 開発者がPRをマージ→親リポジトリへ「更新通知」
-2. **Portalリポジトリ**: 通知受信→自動で `git subtree pull` 実行
-3. **管理者**: Portal側で同期用PRをマージ
+- [運用ガイド（GitHub Pages）](https://tinayrum.github.io/.github/) — 全体像・命名規則・Free プランの制約
+- [開発者ガイド](https://tinayrum.github.io/.github/developer/) — Issue 駆動・承認ゲート・ブランチ・コミット
+- [管理者ガイド](https://tinayrum.github.io/.github/admin/) — リポジトリの作り方と設定
+- [ツール仕様](https://tinayrum.github.io/.github/tools/) — `tools/new_repo`
 
----
+## 🆘 連絡先
 
-## 🏷 ブランチ命名規則
-
-| Prefix | 用途 | SemVer影響 | 例 |
-| :--- | :--- | :--- | :--- |
-| `main` | メインブランチ | なし | `main` |
-| `develop` | ステージングブランチ | なし | `develop` |
-| `feature/` | 新機能追加 | Minor | `feature/add-login-function` |
-| `bugfix/` | バグ修正 | Patch | `bugfix/fix-crash-on-startup` |
-| `hotfix/` | 緊急修正 | Patch | `hotfix/fix-security-vulnerability` |
-| `release/` | リリース準備 | Patch/Minor | `release/v1.2.0-prep` |
-| `docs/` | ドキュメント更新のみ | Patch | `docs/update-api-docs` |
-| `chore/` | その他メンテナンス | Patch | `chore/update-dependencies` |
-
----
-
-## 📝 開発・運用のポイント
-
-- **Docs as Code**: コード修正時はdocs/も必ず更新
-- **main直Push禁止**: PR経由でマージ
-- **CI/CD必須**: GitHub Actions等で自動テスト・デプロイ
-- **README.md整備**: QuickStart・開発手順・依存関係を明記
-- **テンプレート活用**: Issue/PRテンプレート・CI/CDワークフローを標準化
-
----
-
-## 🆘 緊急連絡先
-
-
-- システム管理者： [藤平](https://github.com/tinayla696)
-- インシデント報告：[info@tinayrum.com](mailto:) or GitHub Issues
-- ドキュメント改善提案： プルリクエスト歓迎！
+- 管理者：[藤平](https://github.com/tinayla696)
+- 問い合わせ：[info@tinayrum.com](mailto:info@tinayrum.com)
+- ガイドの改善提案：[tinayrum/.github](https://github.com/tinayrum/.github) への Issue / PR 歓迎
