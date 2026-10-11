@@ -21,3 +21,42 @@
 - name: "fix"
   color: "d73a4a"
   description: "修正"
+
+# ブランチ名から自動付与されるラベル（.github/labeler.yml と対応）
+- name: "hotfix"
+  color: "b60205"
+  description: "緊急修正 (Patch Update)"
+
+- name: "release"
+  color: "5319e7"
+  description: "リリース準備"
+
+- name: "main"
+  color: "ededed"
+  description: "main からの PR"
+
+- name: "develop"
+  color: "ededed"
+  description: "develop からの PR（リリース）"
+
+# Issue テンプレートで使うラベル
+- name: "bug"
+  color: "d73a4a"
+  description: "不具合"
+
+- name: "documentation"
+  color: "0075ca"
+  description: "ドキュメント"
+
+- name: "task"
+  color: "1d76db"
+  description: "開発タスク（Claude Code 実行用）"
+
+- name: "needs-triage"
+  color: "fbca04"
+  description: "未仕分け"
+
+# CI 制御
+- name: "skip-docs"
+  color: "e4e669"
+  description: "Docs as Code 検査を免除（理由を PR 本文に書く）"

@@ -1,19 +1,17 @@
+# .github は main だけで運用する（develop は作らない）。main 向け PR のブランチ prefix だけを検査する。
 name: Check Branch Naming
 
-on: pull_request
+on:
+  pull_request:
+    branches: [main]
+    # edited: マージ先（base）を変更したときにも再検査する
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
 jobs:
   check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fail if branch name is invalid
-        run: |
-          BRANCH_NAME="${{ github.head_ref }}"
-          if [[ "$BRANCH_NAME" == "develop" ]]; then
-            echo "✅ Branch 'develop' is exempt from naming check. Skipping."
-            exit 0
-          fi
-          if [[ ! "$BRANCH_NAME" =~ ^(main|develop|feature|bugfix|docs|hotfix|chore|release)/ ]]; then
-            echo "❌ Error: Branch '$BRANCH_NAME' is invalid."
-            echo "Allowed prefixes: main, develop, feature/, bugfix/, docs/, hotfix/, chore/, release/"
-            exit 1
-          fi
+    uses: ./.github/workflows/reusable-check-branch.yml
+    with:
+      strategy: main-only

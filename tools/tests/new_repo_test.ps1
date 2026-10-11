@@ -6,7 +6,7 @@
 
 $ErrorActionPreference = "Stop"
 $ROOT = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path))
-$SCRIPT = Join-Path $ROOT "tools\new_repo.ps1"
+$SCRIPT = Join-Path (Join-Path $ROOT "tools") "new_repo.ps1"
 $WORK = Join-Path ([IO.Path]::GetTempPath()) ("new_repo_test_" + [guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Path $WORK | Out-Null
 
