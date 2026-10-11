@@ -20,7 +20,7 @@ Closes #
 ## レビューチェックリスト
 - [ ] **Docs as Code:** 修正対応あり
     - [ ] **Docs as Code:** コード修正に合わせて `docs/` 配下も修正されていますか？
-    - [ ] **Preview:** Amplifyプレビューで表示崩れはありませんか？
+    - [ ] **Build:** `mkdocs build --strict` が通りますか？
 - [ ] **Code Quality:** コード品質
     - [ ] **Lint:** Lintエラーはありませんか？
     - [ ] **Type Check:** 型エラーはありませんか？
