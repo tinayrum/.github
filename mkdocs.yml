@@ -1,5 +1,5 @@
 site_name: Tinayrum Solutions Documentation
-site_description: Tinayrum Solutionsの公式ドキュメントサイト
+site_description: tinayrum Organization の GitHub 運用ガイド
 repo_name: tinayrum/.github
 repo_url: https://github.com/tinayrum/.github
 
@@ -82,4 +82,3 @@ nav:
   - 管理者ガイド: admin.md
   - 開発者ガイド: developer.md
   - ツール仕様: tools.md
-  - アプリ単体運用ガイド: app_standalone.md

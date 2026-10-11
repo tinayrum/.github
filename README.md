@@ -1,89 +1,75 @@
-# QuickStart - プロジェクト運用・開発ガイド
+# tinayrum/.github
 
----
+tinayrum Organization の共通設定リポジトリです。
 
-## 📖 運用ガイドライン
+- **組織プロフィール**：`profile/README.md`（Organization のトップページに表示）
+- **共通テンプレート**：`.github/ISSUE_TEMPLATE/`・`.github/pull_request_template.md`・`.github/labels.yml`（独自テンプレートを持たないリポジトリの既定値）
+- **再利用ワークフロー（共通 CI）**：`.github/workflows/reusable-*.yml`
+- **リポジトリ作成ツール**：`tools/new_repo.sh` / `tools/new_repo.ps1`
+- **運用ガイド**：`docs/`（[GitHub Pages](https://tinayrum.github.io/.github/) で公開）
 
-プロジェクトの運用ルール・アーキテクチャ・開発フローは [GitHub Pages](https://tinayrum.github.io/.github/) で公開しています。
+## 📖 運用ガイド
 
-- [Home](https://tinayrum.github.io/.github/)
-- [管理者ガイド](https://tinayrum.github.io/.github/admin/)
-- [開発者ガイド](https://tinayrum.github.io/.github/developer/)
-- [ツール仕様](https://tinayrum.github.io/.github/tools/)
-- [アプリ単体運用ガイド](https://tinayrum.github.io/.github/app_standalone/)
+| ページ | 内容 |
+| :--- | :--- |
+| [Home](https://tinayrum.github.io/.github/) | Notion と GitHub の役割分担、全体像、リポジトリ構成、命名規則、Free プランの制約 |
+| [管理者ガイド](https://tinayrum.github.io/.github/admin/) | 新規リポジトリの作り方、既存リポジトリへの後付け設定、Organization 設定 |
+| [開発者ガイド](https://tinayrum.github.io/.github/developer/) | 開発ルールの要約（正本は [temp の docs/development.md](https://github.com/tinayrum/temp/blob/main/docs/development.md)） |
+| [ツール仕様](https://tinayrum.github.io/.github/tools/) | `tools/new_repo` の仕様 |
 
----
+## 🛠 新しいリポジトリを作る
 
-## 🛠 管理者用ツール
-
-プロジェクトの立ち上げ・構成変更は自動化スクリプトで行います。詳細は「管理者ガイド」を参照してください。
-
-| 目的 | スクリプト | コマンド例 |
-| :--- | :--- | :--- |
-| **Portal新規作成** | `setup_portal.sh` | `./tools/setup_portal.sh MobilityOps_portal` |
-| **アプリ追加** | `add_app.sh` | `./tools/add_app.sh MobilityOps_portal MobilityOps_edge_control` |
-| **App単体新規作成** | `setup_app.sh` | `./tools/setup_app.sh MyApp` |
-
-### 前提条件
-- `tools/.secret_pat` に管理者権限を持つPATが保存されていること
-- `gh` (GitHub CLI) がインストールされていること
-
----
-
-## 🚀 開発フロー（抜粋）
-
-1. ブランチ作成
-    ```bash
-    git checkout -b feature/xxxx
-    ```
-2. 実装 & ドキュメント更新
-    ```bash
-    git add src/xxx docs/yyy
-    git commit -m "feat(scope): add feature and docs"
-    ```
-3. PR作成 & マージ
-    - GitHub上でPRを作成
-    - CI(Lint/Test)が通っていることを確認
-    - main直Pushは禁止、必ずレビューを経由
-
----
-
-## ディレクトリ構成例
-
-```text
-RepoRoot/
-├── .github/      # CI/CD・Issue/PRテンプレート
-├── src/          # ソースコード
-├── docs/         # ドキュメント
-│   ├── index.md
-│   └── images/
-├── tests/        # テストコード
-├── mkdocs.yml    # ドキュメント設定
-├── requirements.txt
-├── profile/
-│   └── README.md
-└── tools/
-    ├── .secret_pat    # (Git管理外: ここにPATを保存)
-    ├── add_app.sh
-    ├── setup_portal.sh
-    └── setup_app.sh
+```bash
+./tools/new_repo.sh <repo-name> [--public]        # 新規作成（テンプレート tinayrum/temp から）
+./tools/new_repo.sh --configure-only <repo-name>  # 既存リポジトリに初期設定だけを適用
 ```
 
----
+PowerShell では `.\tools\new_repo.ps1 <repo-name> [-Public] [-ConfigureOnly]`。
+前提は `gh`（GitHub CLI）のインストールと `gh auth login` だけです。Secret の登録は不要です。
 
-## 初期セットアップ手順
+命名規則：`client-`（受託）/ `prod-`（自社プロダクト）/ `int-`（社内）/ `poc-`（検証）。
 
-1. `.secret_pat` ファイルを `tools` ディレクトリ内に作成し、管理者用PATを保存
-    ```bash
-    echo "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" > tools/.secret_pat
-    ```
-2. スクリプトに実行権限を付与
-    ```bash
-    chmod +x tools/setup_portal.sh tools/add_app.sh tools/setup_app.sh
-    ```
+## 🔁 共通 CI を使う
 
----
+```yaml
+# 各リポジトリの .github/workflows/ci.yml
+jobs:
+  ci:
+    uses: tinayrum/.github/.github/workflows/reusable-ci.yml@main
+```
 
-## 補足
+| ワークフロー | 内容 |
+| :--- | :--- |
+| `reusable-ci.yml` | `mkdocs build --strict`、コミットメッセージ・PR タイトル検査、Docs as Code 検査 |
+| `reusable-check-branch.yml` | ブランチ名 prefix とマージ先の組み合わせ検査 |
+| `reusable-release-drafter.yml` | リリースノート・タグの作成（`GITHUB_TOKEN`） |
 
-`profile/README.md` には組織全体のガイドラインやリソースをまとめています。プロジェクト運用の全体像を把握したい場合はそちらも参照してください。
+## 🚀 このリポジトリの開発
+
+- ブランチは main のみ（develop は作らない）。`feature/`・`docs/`・`chore/` などの作業ブランチから main へ PR を出します。
+- コミットと PR タイトルは `type(scope): subject`。マージは squash。
+- Issue 駆動・承認ゲート・作業報告の進め方は [開発者ガイド](https://tinayrum.github.io/.github/developer/) を参照してください。
+
+```bash
+pip install -r requirements.txt
+mkdocs serve                       # ガイドのプレビュー
+mkdocs build --strict              # CI と同じ検査
+bash tools/tests/new_repo_test.sh  # new_repo の試験
+```
+
+## ディレクトリ構成
+
+```text
+.github/
+├── .github/
+│   ├── ISSUE_TEMPLATE/      # 組織共通の Issue テンプレート
+│   ├── workflows/           # 再利用ワークフロー（reusable-*.yml）と、このリポジトリ自身の CI
+│   ├── labels.yml           # ラベル定義（Sync Labels で同期）
+│   └── pull_request_template.md
+├── docs/                    # 運用ガイド（MkDocs）
+├── profile/README.md        # 組織トップページ
+├── tools/
+│   ├── new_repo.sh / .ps1   # リポジトリ作成・初期設定
+│   └── tests/               # new_repo の試験
+└── mkdocs.yml
+```

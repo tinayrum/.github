@@ -8,7 +8,7 @@
 #                                                  既存リポジトリに初期設定（手順 3〜5）だけを適用する
 #
 # 手順・環境変数は new_repo.sh と同じ（docs/tools.md を参照）。
-# Windows PowerShell 5.1 / PowerShell 7 のどちらでも動く。PAT・Secret は使わない。
+# Windows PowerShell 5.1 / PowerShell 7 のどちらでも動く。Secret は使わない。
 
 param(
     [Parameter(Position = 0)][string]$Name,
