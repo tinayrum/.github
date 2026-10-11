@@ -1,0 +1,20 @@
+# 改行コードの正規化
+# リポジトリ内（インデックス）は常に LF、チェックアウト時も LF に統一する。
+# Windows / Linux / GCP VM のどこで編集しても差分が出ないようにするための設定。
+* text=auto eol=lf
+
+# Windows でしか動かないスクリプトは CRLF のまま扱う
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# バイナリ（改行変換をかけない）
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.woff binary
+*.woff2 binary
+*.zip  binary
