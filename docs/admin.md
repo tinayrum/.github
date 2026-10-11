@@ -55,10 +55,50 @@ temp に無くなったワークフローが残っている場合は削除しま
 | 既定ラベル | Organization Settings → Repository → Repository labels | `labels.yml` と同じラベルを登録しておく（new_repo のラベル同期が失敗したときの保険） |
 | Actions の許可 | Organization Settings → Actions → General | 「Allow all actions and reusable workflows」、または `tinayrum/*` と使用中の action を許可する |
 | ワークフローの権限 | Organization Settings → Actions → General → Workflow permissions | 既定は「Read repository contents」のままにする。書き込みが必要なワークフローは `permissions:` で個別に付与している |
-| ブランチ保護（公開リポジトリ） | 各リポジトリの Settings → Branches | `.github` と `temp` の main に「PR 必須」「force push 禁止」「CI 必須」を設定する |
+| ブランチ保護（公開リポジトリ） | 各リポジトリの Settings → Branches | 設定済み。内容と変更手順は次の「5. ブランチ保護」を参照 |
 | テンプレート指定 | temp の Settings → General | 「Template repository」が有効であることを確認する |
 
-## 5. Free プランの制約
+## 5. ブランチ保護 { #branch-protection }
+
+Free プランでも公開リポジトリならブランチ保護を使えます。次の 3 本に設定しています。
+
+| リポジトリ / ブランチ | 必須チェック |
+| :--- | :--- |
+| `.github` / main | `check / Branch name and merge target`、`ci / Docs build (mkdocs --strict)`、`ci / Commit message (type(scope): subject)`、`ci / PR title (type(scope): subject)`、`tools/new_repo test` |
+| `temp` / main・develop | `check / Branch name and merge target`、`ci / Docs build (mkdocs --strict)`、`ci / Commit message (type(scope): subject)`、`ci / PR title (type(scope): subject)`、`ci / Docs as Code (src/ changes need docs/)` |
+
+共通の設定：PR 必須（承認数 0。承認は Issue の G2 で記録する）、force push 禁止、削除禁止、**管理者も例外にしない**（Do not allow bypassing / `enforce_admins`）。
+
+```bash
+# 現在の設定を確認する
+gh api repos/tinayrum/<repo>/branches/<branch>/protection \
+  --jq '{admins: .enforce_admins.enabled, checks: .required_status_checks.contexts}'
+```
+
+### 緊急時に管理者が直接 push する
+
+管理者も保護の対象なので、直接 push が必要なときは一時的に解除します。解除も Issue で承認を得てから行い、作業後すぐに戻します。
+
+```bash
+gh api -X DELETE repos/tinayrum/<repo>/branches/<branch>/protection/enforce_admins  # 解除
+# …作業…
+gh api -X POST repos/tinayrum/<repo>/branches/<branch>/protection/enforce_admins    # 戻す
+```
+
+### 必須チェックが「待機中（Expected）」のまま止まらないために
+
+必須チェックは、その名前のチェックが報告されないと待機中のままになり、マージできません。
+
+- **job 名を変えるとき**：呼び出し側 job 名（`ci`・`check`）と再利用ワークフロー側の job 名（`name:`）を合わせたものがチェック名になります（例：`ci / Docs build (mkdocs --strict)`）。どちらかを変える場合は、
+    1. 変更を入れた PR で新しい名前のチェックが 1 回実行されるのを待つ
+    2. 必須チェックを新しい名前に更新する（`gh api -X PATCH …/protection/required_status_checks -F 'contexts[]=…'`）
+    3. それから PR をマージする
+
+    再利用ワークフローの job 名を変えると、呼び出している保護付きのリポジトリ（temp）すべてに影響します。
+- **`paths` / `paths-ignore` を付けないこと**：必須チェックを出すワークフロー（`ci.yml`・`check_branch.yml`）に付けると、該当しない PR ではワークフロー自体が起動せず、待機中のまま止まります。対象を絞りたい場合は、ワークフローは毎回起動させ、job の中で変更ファイルを調べて早期に成功終了させます。
+- `if:` で job ごとスキップする（例：develop → main の PR での commit-lint）のは問題ありません。スキップされた job は成功として扱われます。
+
+## 6. Free プランの制約
 
 非公開リポジトリでは、ブランチ保護・Organization Secret・GitHub Pages が使えません。対策は [Home の「Free プランの制約と対策」](index.md#free-plan) にまとめています。
 
