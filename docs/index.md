@@ -67,7 +67,7 @@ tinayrum は GitHub Free プランです。
 | :--- | :--- |
 | 非公開リポジトリではブランチ保護・ルールセットが使えない | CI（ブランチ名・マージ先・コミット形式の検査）を必須とし、「main / develop へ直接 push しない」を運用ルールにする。公開リポジトリ（`.github`・`temp`）はブランチ保護を設定する |
 | 非公開リポジトリでは Organization Secret が使えない | Secret を前提にしない。Release Drafter などは `GITHUB_TOKEN` で動かす。どうしても必要な場合はリポジトリ単位の Secret にする |
-| 非公開リポジトリの Actions 実行時間に上限がある（月 2,000 分） | 共通 CI は軽く保つ（docs ビルドと lint が中心）。重い試験は必要なリポジトリだけに足す |
+| 非公開リポジトリの Actions 実行時間に上限がある（月 2,000 分） | 共通 CI は軽く保つ（docs ビルドと lint が中心）。重い試験は必要なリポジトリだけに足す。課金はジョブごとに 1 分単位で切り上げられるため、非公開リポジトリでは PR の検査を 1 ジョブにまとめた `reusable-pr-checks.yml` を使う（[CI 実行分数の削減](ci-cost-reduction.md)） |
 | 非公開リポジトリでは GitHub Pages を公開できない | 公開ガイドは `.github`（Public）に置く。アプリの docs は CI で `mkdocs build --strict` を通し、閲覧は `mkdocs serve` で行う |
 | CODEOWNERS によるレビュー必須化が使えない（非公開） | レビュー担当は CODEOWNERS に書いて自動アサインに使い、承認は Issue の承認ゲート（G2）で記録する |
 
