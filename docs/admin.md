@@ -97,6 +97,7 @@ gh api -X POST repos/tinayrum/<repo>/branches/<branch>/protection/enforce_admins
     再利用ワークフローの job 名を変えると、呼び出している保護付きのリポジトリ（temp）すべてに影響します。
 - **`paths` / `paths-ignore` を付けないこと**：必須チェックを出すワークフロー（`ci.yml`・`check_branch.yml`）に付けると、該当しない PR ではワークフロー自体が起動せず、待機中のまま止まります。対象を絞りたい場合は、ワークフローは毎回起動させ、job の中で変更ファイルを調べて早期に成功終了させます。
 - `if:` で job ごとスキップする（例：develop → main の PR での commit-lint）のは問題ありません。スキップされた job は成功として扱われます。
+- 非公開リポジトリはブランチ保護がないため、必須チェックの名前を気にせず `reusable-pr-checks.yml`（PR の検査を 1 ジョブにまとめたもの）と `paths-ignore` を使えます。公開リポジトリの `reusable-ci.yml`・`reusable-check-branch.yml` は、必須チェックの名前を保つために残しています（[CI 実行分数の削減](ci-cost-reduction.md)）。
 
 ## 6. Free プランの制約
 

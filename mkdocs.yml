@@ -82,3 +82,4 @@ nav:
   - 管理者ガイド: admin.md
   - 開発者ガイド: developer.md
   - ツール仕様: tools.md
+  - CI 実行分数の削減: ci-cost-reduction.md

@@ -1,5 +1,8 @@
 # ブランチ名とマージ先の検査（再利用ワークフロー）
 #
+# 非公開リポジトリでは reusable-pr-checks.yml を使う（短い検査を 1 ジョブにまとめ、Actions の課金分を減らす。docs/ci-cost-reduction.md）。
+# このワークフローは、ジョブ名を必須チェックにしている公開リポジトリ（.github・temp）のために残している。ジョブ名を変えないこと。
+#
 # 呼び出し例（各リポジトリの .github/workflows/check_branch.yml）:
 #
 #   on:
